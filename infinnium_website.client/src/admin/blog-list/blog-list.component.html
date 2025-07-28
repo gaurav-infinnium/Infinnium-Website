@@ -1,0 +1,245 @@
+<section class="bg-white py-20 px-4 sm:px-6 lg:px-20 mt-[3.25rem]"
+  style="font-family: 'Manrope', 'Open Sans', sans-serif;">
+  <div class="max-w-8xl mx-auto">
+    <div class="relative mb-6 flex">
+      <!-- Centered Heading -->
+      <h1 class="text-3xl font-bold text-gray-800 text-center">BLOGS</h1>
+
+      <!-- Right-aligned Filter Dropdown -->
+      <div class="absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center">
+        <label for="filter" class="mr-2 text-gray-700 font-medium whitespace-nowrap">Filter:</label>
+        <select id="filter" [(ngModel)]="selectedStatus" (change)="filterBlogs()"
+          class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E76F51] focus:border-transparent transition duration-200 ease-in-out hover:border-[#E76F51]">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Show skeleton only when data is loading -->
+    <div *ngIf="!isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
+      <div class="h-[29rem] rounded-lg bg-white max-w-sm relative animate-pulse" *ngFor="let skel of [1,2,3,4]">
+        <div class="w-80 h-40 bg-gray-300 rounded-t-lg"></div>
+        <div class="p-4 w-80 space-y-3">
+          <div class="h-5 bg-gray-300 rounded w-3/4"></div>
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+          <div class="absolute bottom-2 space-y-2">
+            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+            <div class="h-4 bg-gray-300 rounded w-24"></div>
+          </div>
+        </div>
+        <div class="absolute bottom-2 right-2 flex gap-2">
+          <div class="h-8 w-16 bg-gray-300 rounded"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container for all blogs in a row -->
+    <div *ngIf="isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
+      <div class="h-[29rem] rounded-lg bg-white  max-w-sm relative group [box-shadow:0_0_15px_rgba(0,0,0,0.15)]"
+        *ngFor="let blog of filteredBlogs; let i = index;">
+        <!-- Red exclamation icon if blog is not active -->
+        <div class="absolute bottom-[1.9rem] right-[4rem] text-red-600 text-xs" title="Inactive blog">
+          <!--<i class="fa-solid fa-ban"></i>-->
+        </div>
+
+        <label class="absolute bottom-2 right-[4rem] inline-flex items-center cursor-pointer" title="Status">
+          <input type="checkbox" id="isActive" [checked]="blog.isActive" class="sr-only peer"
+            (click)="toggleEditBlog($event, blog)" />
+          <div
+            class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer-checked:bg-[#E76F51] transition-all duration-300">
+          </div>
+          <div
+            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 peer-checked:translate-x-5">
+          </div>
+        </label>
+
+        <!-- Hover buttons -->
+        <div class="absolute bottom-2 right-2 flex gap-2 opacity-100 group-hover:opacity-100 transition-opacity">
+          <button (click)="editBlog(blog)"
+            class="border-[1.5px] border-[#E76F51] text-white text-sm px-2 py-1 rounded overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
+            Edit
+          </button>
+          <!--<button class="bg-red-500 text-white text-sm px-2 py-1 rounded hover:bg-red-600" (click)="deleteBlog(blog.id)">
+      Delete
+    </button>-->
+        </div>
+        <a class="w-80">
+          <img class="rounded-t-lg h-40 w-80 object-cover" [src]="blog.image" alt="blog_image" />
+        </a>
+        <div class="p-4 w-80">
+          <a>
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-black">
+              {{ blog.title }}
+            </h5>
+          </a>
+          <p class="mb-4 text-gray-400 dark:text-gray-500">
+            {{ blog.brief }}
+          </p>
+          <div class="absolute bottom-2">
+            <p class="text-gray-700 dark:text-gray-700">
+              <i class="far fa-calendar-alt mr-1"></i> {{ blog.publishedDate | date: 'longDate' }}
+            </p>
+            <a [routerLink]="['/resources/blogs/', slugify(blog.title), blog.guid]"
+              class="text-[#E76F51] hover:text-[#E65A4E] font-normal mt-1 inline-block hover:underline cursor-pointer">
+              Read More →
+            </a>
+          </div>
+          <!--[routerLink]="['/Resources/Blogs/', blog.title, blog.guid]"-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray-200 py-20 px-4 sm:px-6 lg:px-20" style="font-family: 'Manrope', 'Open Sans', sans-serif;">
+  <div class="max-w-8xl mx-auto">
+    <div class="relative mb-8 flex">
+      <h1 class="text-3xl font-bold text-gray-800 text-left">
+        NEWS AND
+        <span class="block md:inline">EVENTS</span>
+      </h1>
+
+      <!-- Right-aligned Filter Dropdown -->
+      <div class="absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center">
+        <label for="filter" class="mr-2 text-gray-700 font-medium whitespace-nowrap">Filter:</label>
+        <select id="filter" [(ngModel)]="selectedStatus" (change)="filterNews()"
+          class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E76F51] focus:border-transparent transition duration-200 ease-in-out hover:border-[#E76F51]">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Show skeleton only when data is loading -->
+    <div *ngIf="!isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
+      <div class="h-[29rem] rounded-lg bg-white max-w-sm relative animate-pulse" *ngFor="let skel of [1,2,3,4]">
+        <div class="w-80 h-40 bg-gray-300 rounded-t-lg"></div>
+        <div class="p-4 w-80 space-y-3">
+          <div class="h-5 bg-gray-300 rounded w-3/4"></div>
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+          <div class="absolute bottom-2 space-y-2">
+            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+            <div class="h-4 bg-gray-300 rounded w-24"></div>
+          </div>
+        </div>
+        <div class="absolute bottom-2 right-2 flex gap-2">
+          <div class="h-8 w-16 bg-gray-300 rounded"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container for all blogs in a row -->
+    <div *ngIf="isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
+      <div class="h-[29rem] rounded-lg bg-white max-w-sm relative group [box-shadow:0_0_15px_rgba(0,0,0,0.15)] "
+        *ngFor="let blog of filteredNews; let i = index;">
+
+        <label class="absolute bottom-2 right-[4rem] inline-flex items-center cursor-pointer" title="Status">
+          <input type="checkbox" id="isActive" [checked]="blog.isActive" class="sr-only peer"
+            (click)="toggleEditNews($event, blog)" />
+          <div
+            class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer-checked:bg-[#E76F51] transition-all duration-300">
+          </div>
+          <div
+            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 peer-checked:translate-x-5">
+          </div>
+        </label>
+
+        <!-- Hover buttons -->
+        <div class="absolute bottom-2 right-2 flex gap-2 opacity-100 group-hover:opacity-100 transition-opacity">
+          <button (click)="editNews(blog)" style="font-family: 'Manrope', 'Open Sans', sans-serif;"
+            class="border-[1.5px] border-[#E76F51] text-white text-sm px-2 py-1 rounded overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D]">
+            Edit
+          </button>
+        </div>
+        <a class="w-80">
+          <img class="rounded-t-lg h-40 w-80 object-cover" [src]="blog.image" alt="blog_image" />
+        </a>
+        <div class="p-4 w-80">
+          <a>
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-black">
+              {{ blog.title }}
+            </h5>
+          </a>
+          <p class="mb-4 text-gray-400 dark:text-gray-500">
+            {{ blog.brief }}
+          </p>
+          <div class="absolute bottom-2">
+            <p class="text-gray-700 dark:text-gray-700">
+              <i class="far fa-calendar-alt mr-1"></i> {{ blog.publishedDate | date: 'longDate' }}
+            </p>
+            <a [routerLink]="['/resources/news-and-events/', slugify(blog.title), blog.guid]"
+              class="text-[#E76F51] hover:text-[#E65A4E] font-normal mt-1 inline-block hover:underline cursor-pointer">
+              Read More →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="showDeletePopup"
+  class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
+    <!-- Close Button -->
+    <button
+      class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
+      (click)="closePopup()" aria-label="Close">
+      &times;
+    </button>
+    <h3 class="text-xl font-semibold mb-4">Please cofirm before Delete!</h3>
+    <p class="mb-6">You are going to delete this blog from the public website <a
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>
+    </p>
+    <button (click)="closePopup()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
+      Confirm DELETE
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showEditPopup"
+  class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="relative bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
+    <!-- Close Button -->
+    <button
+      class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
+      (click)="closePopup()" aria-label="Close">
+      &times;
+    </button>
+    <h3 class="text-xl font-semibold mb-4">Please cofirm before Edit!</h3>
+    <p class="mb-6">
+      You are going to edit this blog from the public website <a
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>
+    </p>
+    <button (click)="navigateEditBlog()"
+      class="border-[1.5px] border-[#E76F51] text-white px-6 py-2 rounded-3xl overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
+      Confirm EDIT
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showEditNewsPopup"
+  class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="relative bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
+    <!-- Close Button -->
+    <button
+      class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
+      (click)="closePopup()" aria-label="Close">
+      &times;
+    </button>
+    <h3 class="text-xl font-semibold mb-4">Please cofirm before Edit!</h3>
+    <p class="mb-6">
+      You are going to edit this News/Events from the public website <a
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>
+    </p>
+    <button (click)="navigateEditNewsBlog()"
+      class="border-[1.5px] border-[#E76F51] text-white px-6 py-2 rounded-3xl overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
+      Confirm EDIT
+    </button>
+  </div>
+</div>

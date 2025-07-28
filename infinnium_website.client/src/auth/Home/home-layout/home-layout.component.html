@@ -1,0 +1,50 @@
+<div class="bg-gray-900 text-white w-full">
+  <app-header></app-header>
+  <app-home-hero-section></app-home-hero-section>
+  <app-home-what-we-do #whatWeDo></app-home-what-we-do>
+
+  @defer (on viewport(whatWeDo)) {
+  <app-area-of-expertise></app-area-of-expertise>
+  } @placeholder {
+  <div style="height: 1296px;" class="bg-[#ffffff]"></div>
+  }
+  <span #areaOfExpertise></span>
+
+  @defer (on viewport(areaOfExpertise)) {
+  <app-our-products></app-our-products>
+  } @placeholder {
+  <div style="height: 1242px;" class="bg-[#12423C]"></div>
+  }
+  <span #ourProducts></span>
+
+  @defer (on viewport(ourProducts)) {
+  <app-about-us></app-about-us>
+  } @placeholder {
+  <div style="height: 777px;" class="bg-[#EAF5F4]"></div>
+  }
+  <span #aboutUs></span>
+
+  @defer (on viewport(aboutUs)) {
+  <app-global-impact></app-global-impact>
+  } @placeholder {
+  <div style="height: 800px;" class="bg-[#ffffff]"></div>
+  }
+  <span #globalImpact></span>
+
+  @defer (on viewport(globalImpact)) {
+  <app-trusted-leaders></app-trusted-leaders>
+  } @placeholder {
+  <div style="height: 332px;" class="bg-[#12423C]"></div>
+  }
+  <span #trustedLeaders></span>
+
+  @defer (on viewport(trustedLeaders)) {
+  <app-recent-blogs></app-recent-blogs>
+  } @placeholder {
+  <div style="height: 958px;" class="bg-[#EAF4F2]"></div>
+  }
+
+  <app-footer></app-footer>
+  <app-scroll-to-top></app-scroll-to-top>
+  <app-scroll-indicator></app-scroll-indicator>
+</div>

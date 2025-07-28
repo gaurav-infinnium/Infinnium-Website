@@ -1,0 +1,20 @@
+.description-icon {
+    opacity: 0.85;
+    font-size: large;
+}
+
+.rowRecord:hover .description-icon {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.truncate-text-line-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-height: 2rem; 
+}

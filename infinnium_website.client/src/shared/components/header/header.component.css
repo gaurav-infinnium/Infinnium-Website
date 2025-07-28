@@ -1,0 +1,180 @@
+.header-bg-scrolled span after_scroll,
+.active23link {
+  color: #000;
+  background-color: #eaf5f4;
+  display: block;
+  padding-left: 1.25rem; /* px-5 */
+  padding-right: 1.25rem;
+  padding-top: 0.75rem; /* py-3 */
+  padding-bottom: 0.75rem;
+  transition: background-color 0.3s, color 0.3s; /* transition duration-300 */ /* Highlight active link */
+}
+.mobileActiveLink {
+  color: #E76F51 !important;
+  font-weight: 600;
+}
+
+.header-bg {
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.header-bg-scrolled {
+  background-color: white !important; /* White background when scrolled */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for visibility */
+}
+
+.header-bg-scrolled svg path[fill="white"] {
+  fill: #000 !important;
+}
+
+/* Change text color for all header elements when scrolled */
+.header-bg-scrolled,
+.header-bg-scrolled a {
+  color: #444444 !important; /* Dark green color for text */
+}
+
+.header-bg-scrolled span after_scroll {
+  color: #444444;
+}
+
+/* Change hover states when scrolled */
+.header-bg-scrolled a:hover {
+  color: #000000 !important; /* Use your brand's orange color for hover */
+}
+
+#header {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.heading_wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 10rem; /* Adjust this based on the longest word */
+}
+
+/* Before scroll: header has the "header-bg" class */
+#header.header-bg svg .cls-1 {
+  fill: #ffffff !important;
+}
+
+/* After scroll: header has the "header-bg-scrolled" class */
+#header.header-bg-scrolled svg .cls-1 {
+  fill: #234653 !important;
+}
+/* Mobile Sidebar styles */
+.mobile-sidebar {
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing function */
+  will-change: transform; /* Optimize for animations */
+}
+
+.mobile-sidebar.active {
+  transform: translateX(0);
+}
+/* Add overlay for better UX */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+/* header button contactus */
+a.relative.hidden.md\:flex::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  content: "";
+  border-radius: 50%;
+  display: block;
+  width: 20em;
+  height: 20em;
+  /* Override centering to match effect */
+  left: -5em;
+  transition: box-shadow 0.5s ease-out;
+  z-index: -1;
+}
+
+.header-without-bg {
+  color: #cacaca; /* Soft white */
+  transition: color 0.3s ease-in-out;
+}
+
+.header-without-bg:hover {
+  color: #FFFFFF; /* Pure white on hover */
+}
+
+.current-parent > a.header-without-bg {
+  color: #E76F51 !important;  /* your brand color */
+  font-weight: bold;          /* make the text bold */
+  text-decoration: none;      /* remove any underline */
+}
+/* Update your dropdown styles */
+.dropdown-toggle {
+  pointer-events: none; /* Let the click pass through to parent */
+}
+
+.dropdown-toggle > span,
+.dropdown-toggle > svg {
+  pointer-events: auto; /* But make the content clickable */
+}
+
+/* Then adjust your event listeners accordingly */
+/* Update dropdown menu styles */
+.dropdown-menu {
+  overflow: hidden;
+  display: grid; /* Using grid for smooth transitions */
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.dropdown-menu.show {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.dropdown-menu > div {
+  min-height: 0; /* Important for the transition to work */
+}
+/* Smooth arrow rotation */
+.dropdown-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-toggle.active svg {
+  transform: rotate(180deg);
+}
+/* Smoother dropdown animation */
+.dropdown-animate {
+  opacity: 0;
+  transform: translateY(30px); /* start lower for more dramatic slide */
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 400ms ease,
+    transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1); /* smooth + natural easing */
+}
+
+.group:hover .dropdown-animate {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}

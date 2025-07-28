@@ -1,0 +1,92 @@
+<!-- Skeleton Loader for Blog/News Detail -->
+<div *ngIf="!isContentLoaded">
+  <div class="max-w-2xl mx-auto mt-12 p-4 animate-pulse">
+
+    <!-- Back Button Skeleton -->
+    <div class="flex items-center mb-4 space-x-2">
+      <div class="w-4 h-4 bg-gray-300 rounded-full"></div>
+      <div class="h-4 w-40 bg-gray-300 rounded"></div>
+    </div>
+
+    <!-- Label Skeleton -->
+    <div class="h-3 w-24 bg-gray-300 rounded mb-2"></div>
+
+    <!-- Title Skeleton -->
+    <div class="h-6 w-3/4 bg-gray-300 rounded mb-3"></div>
+
+    <!-- Subtitle Skeleton -->
+    <div class="h-4 w-full bg-gray-300 rounded mb-2"></div>
+    <div class="h-4 w-5/6 bg-gray-300 rounded mb-3"></div>
+
+    <!-- Date Skeleton -->
+    <div class="h-4 w-32 bg-gray-300 rounded mb-4"></div>
+
+    <!-- Image Skeleton -->
+    <div class="w-full h-64 bg-gray-300 rounded-lg shadow mb-6"></div>
+
+    <!-- Paragraph Skeleton (Simulating Blog Content) -->
+    <div class="space-y-4">
+      <div class="h-4 w-full bg-gray-300 rounded"></div>
+      <div class="h-4 w-5/6 bg-gray-300 rounded"></div>
+      <div class="h-4 w-4/5 bg-gray-300 rounded"></div>
+      <div class="h-4 w-2/3 bg-gray-300 rounded"></div>
+      <div class="h-4 w-3/4 bg-gray-300 rounded"></div>
+    </div>
+
+  </div>
+</div>
+
+<main *ngIf="isContentLoaded" class="max-w-2xl mx-auto mt-12 p-4">
+  <!-- Back Button -->
+  <button *ngIf="blog?.title" [routerLink]="['/resources/blogs']" class="common flex items-center mb-4">
+    &larr; <span class="text-md ml-2" style="margin: 5px;">Back to Blog Listing</span>
+  </button>
+  <button *ngIf="news?.title" [routerLink]="['/resources/news-and-events']" class="common flex items-center mb-4">
+    &larr; <span class="text-md ml-2" style="margin: 5px;">Back to News Listing</span>
+  </button>
+
+  <!-- Blog Label -->
+  <p *ngIf="blog?.title" class="text-green-600 font-semibold uppercase text-sm">Blogs</p>
+  <p *ngIf="news?.title" class="text-green-600 font-semibold uppercase text-sm">News and Events</p>
+
+  <!-- Blog Title -->
+  <h2 *ngIf="blog?.title" class="text-2xl font-bold mt-2">
+    {{ blog.title }}
+  </h2>
+  <h2 *ngIf="news?.title" class="text-2xl font-bold mt-2">
+    {{ news.title }}
+  </h2>
+
+  <!-- Blog Subtitle -->
+  <p *ngIf="blog?.brief" class="text-gray-600 mt-2">
+    {{ blog.brief }}
+  </p>
+  <p *ngIf="news?.brief" class="text-gray-600 mt-2">
+    {{ news.brief }}
+  </p>
+
+  <!-- Blog Date -->
+  <p *ngIf="blog?.publishedDate" class="flex items-center text-gray-500 text-sm mt-2">
+    📅 {{ blog.publishedDate | date: 'longDate' }}
+  </p>
+  <p *ngIf="news?.publishedDate" class="flex items-center text-gray-500 text-sm mt-2">
+    📅 {{ news.publishedDate | date: 'longDate' }}
+  </p>
+
+  <!-- Blog Image -->
+  <div *ngIf="blog?.title" class="mt-4">
+    <img [src]="blog.image" alt="Blog Image" class="w-full rounded-lg shadow">
+  </div>
+  <div *ngIf="news?.title" class="mt-4">
+    <img [src]="news.image" alt="Blog Image" class="w-full rounded-lg shadow">
+  </div>
+
+  <!-- Blog Content -->
+  <div *ngIf="blog?.description">
+    <p [innerHTML]="blog.description" class="mt-6 space-y-4 text-gray-800 blog-content hyphens-none"></p>
+  </div>
+  <div *ngIf="news?.description">
+    <p class="mt-6 space-y-4 text-gray-800 leading-relaxed blog-content" [innerHTML]="news.description"></p>
+  </div>
+
+</main>

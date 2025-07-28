@@ -1,0 +1,91 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<section class="scroll-bg-transition py-16 px-6 md:px-12 lg:px-24" style="font-family: 'Manrope', 'Open Sans', sans-serif">
+  <div class="max-w-6xl mx-auto">
+    <!-- Section Title -->
+    <div class="text-center mb-12 fade-in-on-scroll" id="section-header">
+      <h2 class="text-4xl font-semibold text-[#12423C]">
+        Intelligent Breach Management with 4iG®
+      </h2>
+      <p class="mt-4 text-lg text-[#1E2D2F]">
+        Discover how our cutting-edge platform ensures secure, efficient, and scalable breach data control.
+      </p>
+    </div>
+ 
+    <!-- Desktop Layout: Static Headings and Scrollable Descriptions -->
+    <div class="hidden md:flex flex-row items-start gap-10 h-[18rem] relative z-10">
+      <!-- Left Side: Scrollable Descriptions -->
+      <div class="w-[65%] h-full">
+        <div id="description-container" class="h-full overflow-y-auto snap-y snap-mandatory no-scrollbar">
+          <div class="space-y-8">
+            <div *ngFor="let item of items; let i = index"
+                 class="snap-center min-h-[18rem] fade-in-on-scroll scroll-item flex items-top justify-center"
+                 [attr.data-id]="i + 1">
+              <p class="text-[#1E2D2F] text-base font-light text-left">
+                {{ item.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Vertical Divider -->
+      <div class="h-[100%] w-px bg-gray-300"></div>
+ 
+      <!-- Right Side: Static Headings -->
+      <div class="w-[35%] h-full flex items-top">
+        <div class="w-full">
+          <div class="space-y-4">
+            <div *ngFor="let item of items; let i = index" class="heading-item cursor-pointer" [attr.data-id]="i + 1">
+              <h3 class="text-sm font-semibold text-[#12423C] transition-all duration-300">
+                {{ item.heading }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Mobile Layout: Single Heading, Divider, Description with Dot Pagination -->
+    <div class="md:hidden">
+      <!-- Mobile Headings Carousel -->
+      <div id="heading-container" class="relative overflow-hidden">
+        <div class="flex transition-transform duration-300 ease-in-out" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+          <div *ngFor="let item of items; let i = index" class="heading-item cursor-pointer flex-shrink-0 w-full text-center" [attr.data-id]="i + 1">
+            <h3 class="text-lg font-semibold text-[#e76f51] transition-all duration-300">
+              {{ item.heading }}
+            </h3>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Horizontal Divider -->
+      <div class="border-t border-gray-300 my-4"></div>
+ 
+      <!-- Mobile Description Carousel -->
+      <div class="relative">
+        <div id="mobile-description" class="min-h-[300px] overflow-hidden">
+          <div class="flex transition-transform duration-300 ease-in-out" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+            <div *ngFor="let item of items; let i = index" class="scroll-item flex-shrink-0 w-full flex justify-start fade-in-on-scroll">
+              <p class="text-[#1E2D2F] text-base font-light text-left leading-relaxed px-8">
+                {{ item.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Dot Pagination -->
+      <div class="flex justify-center mt-4 gap-2">
+        <div *ngFor="let item of items; let i = index"
+             class="w-2 h-2 rounded-full cursor-pointer transition-all duration-300"
+             [ngClass]="{
+               'bg-[#12423C]': i === currentIndex,
+               'bg-gray-300': i !== currentIndex
+             }"
+             (click)="onDotClick(i)">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

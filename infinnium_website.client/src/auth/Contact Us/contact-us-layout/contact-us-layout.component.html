@@ -1,0 +1,20 @@
+<div class="scroll-bg-transition" style="font-family: 'Manrope', 'Open Sans', sans-serif">
+    <div *ngIf="isVisible" class="validation-message relative flex justify-center">
+        <div *ngIf="isMailSent === true"
+            class="fixed top-[6rem] transform bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 inline-block w-fit text-center fade-in"
+            [class.fade-out]="isFadingOut">
+            <p class="text-sm">{{ message }}</p>
+        </div>
+        <div *ngIf="isMailSent === false"
+            class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 w-auto max-w-sm text-center">
+            <p class="text-sm">{{ message }}</p>
+        </div>
+    </div>
+    <app-header></app-header>
+    <app-contact-us-hero-section></app-contact-us-hero-section>
+    <app-form (submitEvent)="onFormSubmit($event)"></app-form>
+    <app-reach-out></app-reach-out>
+    <app-footer></app-footer>
+    <app-scroll-to-top></app-scroll-to-top>
+    <app-scroll-indicator></app-scroll-indicator>
+</div>

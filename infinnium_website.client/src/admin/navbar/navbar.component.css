@@ -1,0 +1,179 @@
+/* Nav Bar */
+.navbar {
+  background-color: #000000;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+img {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Brand Styling */
+.navbar-brand {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 1px;
+  transition: color 0.3s ease-in-out;
+}
+.divider {
+  width: 2px;
+  height: 40px;
+  background-color: white;
+  margin: 0 15px;
+  opacity: 0.7;
+}
+
+/* Nav Links */
+.nav-link {
+  color: lightgray;
+  font-weight: 500;
+  font-size: 1.1rem;
+  position: relative;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  cursor: pointer;
+}
+.nav-link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: -100%;
+  background: #ffffff;
+  transition: left 0.3s ease-in-out;
+}
+.nav-link:hover::before {
+  left: 0;
+}
+
+/* Nav Active Link */
+.activeLink {
+  color: white;
+  text-decoration: underline;
+}
+.activeLink2 {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.header-bg-scrolled span after_scroll,
+.active23link {
+  color: #000;
+  background-color: #eaf5f4;
+  display: block;
+  padding-left: 1.25rem; /* px-5 */
+  padding-right: 1.25rem;
+  padding-top: 0.75rem; /* py-3 */
+  padding-bottom: 0.75rem;
+  transition: background-color 0.3s, color 0.3s; /* transition duration-300 */ /* Highlight active link */
+}
+.mobileActiveLink {
+  color: #000;
+  background-color: #eaf5f4;
+}
+
+.header-bg {
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.header-bg-scrolled {
+  background-color: white !important; /* White background when scrolled */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for visibility */
+}
+
+.header-bg-scrolled svg path[fill="white"] {
+  fill: #000 !important;
+}
+
+/* Change text color for all header elements when scrolled */
+.header-bg-scrolled,
+.header-bg-scrolled a {
+  color: #444444 !important; /* Dark green color for text */
+}
+
+.header-bg-scrolled span after_scroll {
+  color: #444444;
+}
+
+/* Change hover states when scrolled */
+.header-bg-scrolled a:hover {
+  color: #000000 !important; /* Use your brand's orange color for hover */
+}
+
+#header {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.heading_wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 10rem; /* Adjust this based on the longest word */
+}
+
+/* Before scroll: header has the "header-bg" class */
+#header.header-bg svg .cls-1 {
+  fill: #ffffff !important;
+}
+
+/* After scroll: header has the "header-bg-scrolled" class */
+#header.header-bg-scrolled svg .cls-1 {
+  fill: #234653 !important;
+}
+/* Mobile Sidebar styles */
+.mobile-sidebar {
+  transform: translateX(100%);
+}
+
+.mobile-sidebar.active {
+  transform: translateX(0);
+}
+
+/* header button contactus */
+a.relative.hidden.md\:flex::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  content: "";
+  border-radius: 50%;
+  display: block;
+  width: 20em;
+  height: 20em;
+  /* Override centering to match effect */
+  left: -5em;
+  transition: box-shadow 0.5s ease-out;
+  z-index: -1;
+}
+/* navbar.component.css */
+/* .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 320px;
+  text-align: center;
+} */

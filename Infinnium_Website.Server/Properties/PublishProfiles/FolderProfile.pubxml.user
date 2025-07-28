@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>W:\Infinnium website project\03\Infinnium_Website-main\Infinnium_Website-main\Infinnium_Website.Server\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2025-07-16T13:08:35.6391645Z||;True|2025-07-16T17:45:15.7805337+05:30||;True|2025-07-14T19:00:24.3369484+05:30||;True|2025-07-14T18:22:07.3605777+05:30||;True|2025-07-11T17:55:19.4562819+05:30||;True|2025-07-11T16:37:45.3899731+05:30||;True|2025-07-09T16:37:02.4503735+05:30||;True|2025-07-09T16:15:21.9309200+05:30||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
