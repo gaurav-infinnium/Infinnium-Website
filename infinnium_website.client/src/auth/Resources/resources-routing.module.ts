@@ -6,14 +6,14 @@ export const routes: Routes = [
   {
     path: 'resources',
     children: [
-      {
-        path: 'blogs',
-        loadComponent: () =>
-          import('./Blogs/blogs-list-layout/blogs-list-layout.component').then(
-            (m) => m.BlogsListLayoutComponent
-          ),
-        title: 'Resources - Infinnium',
-      },
+      // {
+      //   path: 'blogs',
+      //   loadComponent: () =>
+      //     import('./Blogs/blogs-list-layout/blogs-list-layout.component').then(
+      //       (m) => m.BlogsListLayoutComponent
+      //     ),
+      //   title: 'Resources - Infinnium',
+      // },
       {
         path: 'news-and-events',
         loadComponent: () =>
@@ -22,14 +22,14 @@ export const routes: Routes = [
           ),
         title: 'Resources - Infinnium',
       },
-      {
-        path: 'blogs/:blogTitle/:guid',
-        loadComponent: () =>
-          import(
-            './Blogs/single-blog-layout/single-blog-layout.component'
-          ).then((m) => m.SingleBlogLayoutComponent),
-        title: 'Resources - Infinnium',
-      },
+      // {
+      //   path: 'blogs/:blogTitle/:guid',
+      //   loadComponent: () =>
+      //     import(
+      //       './Blogs/single-blog-layout/single-blog-layout.component'
+      //     ).then((m) => m.SingleBlogLayoutComponent),
+      //   title: 'Resources - Infinnium',
+      // },
       {
         path: 'news-and-events/:newsTitle/:guid',
         loadComponent: () =>

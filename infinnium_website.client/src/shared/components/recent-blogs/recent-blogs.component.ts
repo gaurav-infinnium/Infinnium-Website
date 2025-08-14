@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { BlogsService } from '../../../services/blogsService.service';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { NewsService } from '../../../services/newsService.service';
 
 @Component({
   standalone: true,
@@ -19,13 +20,23 @@ export class RecentBlogsComponent implements OnInit {
 
   constructor(
     private blogsService: BlogsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private newsService: NewsService
   ) {}
 
   ngOnInit() {
-    this.loadRecentBlogs();
-
+    // this.loadRecentBlogs();
+    this.loadRecentNews();
     // this.cdr.detectChanges();
+  }
+
+  async loadRecentNews() {
+    this.isLoading = true;
+    this.cdr.detectChanges();
+    this.recentBlogs = await this.newsService.getTop3News();
+    this.isLoading = false;
+    this.cdr.detectChanges();
+    this.initScrollAnimations();
   }
 
   async loadRecentBlogs() {

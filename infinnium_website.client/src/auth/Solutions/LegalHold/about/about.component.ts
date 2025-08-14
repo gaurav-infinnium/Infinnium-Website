@@ -16,7 +16,7 @@ export class AboutComponent implements AfterViewInit {
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const el = this.animatedSection.nativeElement;
+          const el = this.animatedSection?.nativeElement;
           el.classList.remove('opacity-0');
           el.classList.add('fade-in');
           obs.unobserve(el);
@@ -25,9 +25,10 @@ export class AboutComponent implements AfterViewInit {
     }, {
       threshold: 0.1
     });
-
-    observer.observe(this.animatedSection.nativeElement);
-  }
+   if (this.animatedSection) {
+     observer.observe(this.animatedSection.nativeElement);
+   }
+ }
 
   // Scroll-triggered animation logic
   initScrollAnimations() {

@@ -11,7 +11,7 @@ export class FeaturesComponent implements AfterViewInit {
 
   // Lifecycle hook for initializing the animations after the view is initialized
   ngAfterViewInit() {
-    console.log('Component Initialized');
+    // console.log('Component Initialized');
     this.initScrollAnimations();
   }
 

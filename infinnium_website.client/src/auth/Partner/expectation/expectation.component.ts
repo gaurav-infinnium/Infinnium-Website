@@ -60,6 +60,8 @@ export class ExpectationComponent implements AfterViewInit {
       { threshold: 0.3 }
     );
 
-    bgObserver.observe(this.bgSection.nativeElement);
+    if(this.bgSection) {
+      bgObserver.observe(this.bgSection.nativeElement);
+    }
   }
 }
