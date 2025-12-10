@@ -15,8 +15,9 @@
 }
 
 .header-bg {
-  background-color: transparent;
+  background-color: white !important;
   transition: background-color 0.3s ease;
+  color: #000 !important;
 }
 
 .header-bg-scrolled {
@@ -57,9 +58,9 @@
 }
 
 /* Before scroll: header has the "header-bg" class */
-#header.header-bg svg .cls-1 {
+/* #header.header-bg svg .cls-1 {
   fill: #ffffff !important;
-}
+} */
 
 /* After scroll: header has the "header-bg-scrolled" class */
 #header.header-bg-scrolled svg .cls-1 {

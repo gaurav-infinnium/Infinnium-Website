@@ -10,6 +10,7 @@ import { adminRoutes } from '../admin/admin-routing.module';
 import { policyRoutes } from '../auth/Privacy/privacy-routing.module';
 import { termsRoutes } from '../auth/Terms of Use/terms-routing.module';
 import { cookieRoute } from '../auth/Cookies/cookie-routing.module';
+import { VulnerabilityRoutes } from '../auth/Vulnerability Disclosure/vulnerability-routing.module';
 
 export const routes: Routes = [
   ...aboutUsRoutes,
@@ -23,6 +24,7 @@ export const routes: Routes = [
   ...policyRoutes,
   ...termsRoutes,
   ...cookieRoute,
+  ...VulnerabilityRoutes,
 
   // Wildcard
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
