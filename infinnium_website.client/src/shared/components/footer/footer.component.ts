@@ -44,6 +44,8 @@ export class FooterComponent {
 
   openPopup() {
     this.loadStoredSettings();
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     this.showPopup = true;
   }
 
@@ -55,7 +57,7 @@ export class FooterComponent {
 
   saveSettings() {
     // console.log('Saved Settings:', this.settings);
-    localStorage.setItem('cookieSettings', JSON.stringify(this.settings));
+    localStorage.setItem('cookieSettings', btoa(JSON.stringify(this.settings)));
     this.closePopup();
   }
 }

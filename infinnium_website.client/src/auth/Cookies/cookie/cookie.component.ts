@@ -66,17 +66,20 @@ export class CookieComponent implements OnInit {
   }
 
   customize() {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     this.showCookieSettingsPopup = true;
   }
 
   closePopupUsingCross() {
     this.saveSettings();
-
-    this.showPopup = false;
-    this.showCookieSettingsPopup = false;
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
 
   closePopup() {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     this.showPopup = false;
     this.showCookieSettingsPopup = false;
   }
