@@ -9,7 +9,7 @@ export const routes: Routes = [
       import('./privacy-policy/privacy-policy.component').then(
         (m) => m.PrivacyPolicyComponent
       ),
-    title: 'PP - Infinnium',
+    title: 'Privacy Policy',
   },
 ];
 

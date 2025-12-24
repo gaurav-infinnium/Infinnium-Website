@@ -20,7 +20,7 @@ export const routes: Routes = [
           import('./News/news-list-layout/news-list-layout.component').then(
             (m) => m.NewsListLayoutComponent
           ),
-        title: 'Resources - Infinnium',
+        title: 'News And Events',
       },
       // {
       //   path: 'blogs/:blogTitle/:guid',
@@ -36,7 +36,7 @@ export const routes: Routes = [
           import('./News/single-news-layout/single-news-layout.component').then(
             (m) => m.SingleNewsLayoutComponent
           ),
-        title: 'Resources - Infinnium',
+        title: 'News And Events',
       },
     ],
   },

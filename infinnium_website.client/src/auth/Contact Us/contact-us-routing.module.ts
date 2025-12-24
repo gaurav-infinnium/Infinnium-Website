@@ -9,7 +9,7 @@ export const routes: Routes = [
     loadComponent: () => import('./contact-us-layout/contact-us-layout.component').then(
       (m) => m.ContactUsLayoutComponent
     ),
-    title: 'Contact - Infinnium',
+    title: 'ContactUs',
   },
 ];
 

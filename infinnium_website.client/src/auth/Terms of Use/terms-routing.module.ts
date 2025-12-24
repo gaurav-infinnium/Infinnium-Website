@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: 'terms-of-use',
     loadComponent: () =>
       import('./terms/terms.component').then((m) => m.TermsComponent),
-    title: 'ToU - Infinnium',
+    title: 'Terms Of Use',
   },
 ];
 

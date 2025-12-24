@@ -12,7 +12,7 @@ export const routes: Routes = [
           import('./breachResponse/solution1-layout/solution1-layout.component').then(
             (m) => m.Solution1LayoutComponent
           ),
-        title: 'Solutions - Infinnium',
+        title: 'Breach Response',
       },
       {
         path: 'unified-information-governance',
@@ -20,7 +20,7 @@ export const routes: Routes = [
           import('./UIG/solution2-layout/solution2-layout.component').then(
             (m) => m.Solution2LayoutComponent
           ),
-        title: 'Solutions - Infinnium',
+        title: 'Unified Information Governance',
       },
       {
         path: 'data-protection',
@@ -28,7 +28,7 @@ export const routes: Routes = [
           import('./DSAR/solution3-layout/solution3-layout.component').then(
             (m) => m.Solution3LayoutComponent
           ),
-        title: 'Solutions - Infinnium',
+        title: 'Data Protection',
       },
       {
         path: 'eDiscovery',
@@ -36,7 +36,7 @@ export const routes: Routes = [
           import(
             './eDiscovery/solution4-layout/solution4-layout.component'
           ).then((m) => m.Solution4LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'eDiscovery',
       },
       {
         path: 'automated-redaction',
@@ -44,7 +44,7 @@ export const routes: Routes = [
           import(
             './AutomatedRedaction/solution5-layout/solution5-layout.component'
           ).then((m) => m.Solution5LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'Automated Redaction',
       },
       {
         path: 'data-mapping',
@@ -52,7 +52,7 @@ export const routes: Routes = [
           import(
             './DataMapping/solution6-layout/solution6-layout.component'
           ).then((m) => m.Solution6LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'Data Mapping',
       },
       {
         path: 'data-retention',
@@ -60,7 +60,7 @@ export const routes: Routes = [
           import(
             './DataRetention/solution7-layout/solution7-layout.component'
           ).then((m) => m.Solution7LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'Data Retention',
       },
       {
         path: 'unified-archival',
@@ -68,7 +68,7 @@ export const routes: Routes = [
           import(
             './UnifiedArchival/solution8-layout/solution8-layout.component'
           ).then((m) => m.Solution8LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'Unified Archival',
       },
       {
         path: 'data-disposition',
@@ -76,7 +76,7 @@ export const routes: Routes = [
           import(
             './DataDiposition/solution9-layout/solution9-layout.component'
           ).then((m) => m.Solution9LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'Data Disposition',
       },
       {
         path: 'legal-hold',
@@ -84,7 +84,7 @@ export const routes: Routes = [
           import(
             './LegalHold/solution10-layout/solution10-layout.component'
           ).then((m) => m.Solution10LayoutComponent),
-        title: 'Solutions - Infinnium',
+        title: 'Legal Hold',
       },
     ],
   },

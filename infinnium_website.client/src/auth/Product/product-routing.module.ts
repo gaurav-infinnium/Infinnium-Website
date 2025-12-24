@@ -12,7 +12,7 @@ export const routes: Routes = [
           import(
             './4ig-Product/product-layout/product-layout.component'
           ).then((m) => m.ProductLayoutComponent),
-        title: 'Products - Infinnium',
+        title: '4iG®',
       },
       {
         path: 'breach-profiler',
@@ -20,7 +20,7 @@ export const routes: Routes = [
           import(
             './Breach Profiler/product2-layout/product2-layout.component'
           ).then((m) => m.Product2LayoutComponent),
-        title: 'Products - Infinnium',
+        title: 'BreachProfiler™',
       },
       {
         path: 'obscure-pi',
@@ -28,7 +28,7 @@ export const routes: Routes = [
           import('./Obscure PI/product3-layout/product3-layout.component').then(
             (m) => m.Product3LayoutComponent
           ),
-        title: 'Products - Infinnium',
+        title: 'ObscurePI®',
       },
     ],
   },

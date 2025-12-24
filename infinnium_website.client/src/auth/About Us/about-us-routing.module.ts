@@ -12,7 +12,7 @@ export const routes: Routes = [
           import('./about-us-layout/about-us-layout.component').then(
             (m) => m.AboutUsLayoutComponent
           ),
-        title: 'About - Infinnium',
+        title: 'AboutUs',
       },
       {
         path: 'member/:name/:guid',
@@ -20,7 +20,7 @@ export const routes: Routes = [
           import('./Members/member-layout/member-layout.component').then(
             (m) => m.MemberLayoutComponent
           ),
-        title: 'About - Infinnium',
+        title: 'Members',
       },
     ],
   },

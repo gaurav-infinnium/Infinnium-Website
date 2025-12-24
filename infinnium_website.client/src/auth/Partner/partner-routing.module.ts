@@ -8,7 +8,7 @@ export const routes: Routes = [
     loadComponent: () => import('./partner-layout/partner-layout.component').then(
       (m) => m.PartnerLayoutComponent
     ),
-    title: 'Partner - Infinnium',
+    title: 'Partner',
   },
 ];
 
