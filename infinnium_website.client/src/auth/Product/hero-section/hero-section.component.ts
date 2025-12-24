@@ -21,7 +21,7 @@ export class HeroSectionComponent implements AfterViewInit {
     const textElement = document.getElementById(
       'search-text'
     ) as unknown as SVGTextElement;
-    const fullText = 'Breach Profiler';
+    const fullText = 'BreachProfiler™';
     let index = 0;
     let isDeleting = false;
 
