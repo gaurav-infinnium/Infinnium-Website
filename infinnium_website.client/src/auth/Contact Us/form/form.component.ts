@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
@@ -25,7 +27,7 @@ export class FormComponent implements AfterViewInit, OnInit, AfterViewChecked {
   invalidStyle = "w-full border border-red-600 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-red-900 pr-10";
   captchaDrawn = false;
   captchaCode = '';
-  captchaValid: boolean | null = null;
+  captchaValid: boolean = false;
   isShowCaptchaCode = false;
   captchaBaseStyle = "h-[38px] p-1 px-2 border border-gray-300 rounded-md box-border ml-2 w-40";
   captchaInvalidStyle = "h-[38px] p-1 px-2 border border-red-600 rounded-md box-border ml-2 w-40 focus:outline-none focus:ring-1 focus:ring-red-900";
@@ -97,12 +99,11 @@ export class FormComponent implements AfterViewInit, OnInit, AfterViewChecked {
     this.submitted = true;
     let isCaptchaValid = false;
     if (this.isShowCaptchaCode == true) {
-      let result = this.validateCaptcha();
+      const result = this.validateCaptcha();
       isCaptchaValid = result;
 
-      if (this.contactUsForm.valid && (this.contactUsForm.value.captcha.length > 0)) {
-        console.log("Part 1");
-        debugger;
+      if (this.contactUsForm.valid && isCaptchaValid) {
+        //console.log("Part 1");
         this.isLoading = true;
         this.isInValid = false;
         this.contactUsService.addContactUs(this.contactUsForm.value.name, this.contactUsForm.value.email, this.contactUsForm.value.description).subscribe({
@@ -170,16 +171,14 @@ export class FormComponent implements AfterViewInit, OnInit, AfterViewChecked {
           }
         });
       } else {
-        console.log("Part 1");
-        debugger;
+        //console.log("Part 1");
         this.isInValid = true;
         this.contactUsForm.markAllAsTouched();
         // console.log('Form is invalid');
       }
     } else {
       if (this.contactUsForm.valid) {
-        console.log("fsf_not available");
-        debugger;
+        //console.log("fsf_not available");
         this.isLoading = true;
         this.isInValid = false;
         this.contactUsService.addContactUs(this.contactUsForm.value.name, this.contactUsForm.value.email, this.contactUsForm.value.description).subscribe({
@@ -256,10 +255,9 @@ export class FormComponent implements AfterViewInit, OnInit, AfterViewChecked {
 
   generateCaptcha(): void {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    this.captchaCode = Array.from({ length: 6 }, () =>
+    this.captchaCode = Array.from({ length: 5 }, () =>
       chars.charAt(Math.floor(Math.random() * chars.length))
     ).join('');
-    this.captchaValid = null;
     this.drawCaptcha();
   }
 
@@ -323,7 +321,7 @@ export class FormComponent implements AfterViewInit, OnInit, AfterViewChecked {
   }
 
   validateCaptcha() {
-    const captchaValue = this.contactUsForm.get('captcha')?.value;
-    return (this.captchaValid = captchaValue === this.captchaCode);
-  }
+      const captchaValue = this.contactUsForm.get('captcha')?.value;
+      return (this.captchaValid = captchaValue === this.captchaCode);
+    }
 }

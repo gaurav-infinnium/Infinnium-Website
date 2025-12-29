@@ -33,31 +33,35 @@ namespace Infinnium_Website.Server
                 {
                     throw new ArgumentNullException(nameof(mail), "Email address cannot be null or empty.");
                 }
-                Console.WriteLine(mail);
+                //Console.WriteLine(mail);
 
                 var pwd = en.Decrypt(loginConfig.Password);
                 if (string.IsNullOrEmpty(pwd))
                 {
                     throw new ArgumentNullException(nameof(pwd), "Password cannot be null or empty.");
                 }
-                Console.WriteLine(pwd);
+                //Console.WriteLine(pwd);
 
-                var client = new SmtpClient("mail.infinniumtech.com", 587)
+                var domain = en.Decrypt(loginConfig.Domain);
+                var port = loginConfig.Port;
+                var client = new SmtpClient(domain, port)
                 {
-                    EnableSsl = true,
+                    EnableSsl = false,
                     Credentials = new NetworkCredential(mail, pwd),
                     UseDefaultCredentials = false,
                     DeliveryMethod = SmtpDeliveryMethod.Network
                 };
 
-                await client.SendMailAsync(new MailMessage
+                var message = new MailMessage
                 {
                     From = new MailAddress(mail),
-                    To = { emailTo },
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = true
-                });
+                };
+                message.To.Add(new MailAddress(emailTo));
+
+                await client.SendMailAsync(message);
 
                 isEmailSend = true;
             }

@@ -129,7 +129,7 @@ namespace Infinnium_Website.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
                 return Ok("Create contact us operation failed.");
             }
 
@@ -137,21 +137,21 @@ namespace Infinnium_Website.Server.Controllers
             {
                 try
                 {
+                    DateTime currentUtcTimestamp = DateTime.UtcNow;
                     await SendEmail(new EmailRequest
                     {
-                        Receiver = record.Email ?? "",
+                        User = record.FirstName,
+                        Receiver = record.Email,
                         Subject = "Great to here from you!",
-                        Body = $"{record.Message} Thank you for reaching out to us. We will get back to you soon."
+                        currentTimeStamp = currentUtcTimestamp
                     });
-
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Email Error: {ex.Message}");
-
+                    return StatusCode(400, $"Failed to send email: {ex.Message}");
                 }
             }
-            return Ok("Create contact us operation successfully executed.");
+            return Ok("Auto reply mail sent.");
         }
 
         // Set Contact Us record Active/inActive
@@ -213,21 +213,23 @@ namespace Infinnium_Website.Server.Controllers
         [Route("SendEmail")]
         public async Task<IActionResult> SendEmail(EmailRequest user)
         {
-            string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "email.html");
+            string prodTemplatePath = "wwwroot/assets/templates/email.html";
+            string templatePath = Path.Combine(Directory.GetCurrentDirectory(), prodTemplatePath);
             string htmlBody = await System.IO.File.ReadAllTextAsync(templatePath);
 
             // Replace placeholders if needed
-            htmlBody = htmlBody.Replace("[User's Name]", "Dear user");
+            htmlBody = htmlBody.Replace("[User's Name]", user.User);
+            htmlBody = htmlBody.Replace("[ContactUsRecordDate]", user.currentTimeStamp.ToString());
 
             try
             {
                 await emailSender.SendEmailAsync(user.Receiver, user.Subject, htmlBody);
-                return Ok("Email sent successfully.");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Failed to send email: {ex.Message}");
+                return StatusCode(400, $"Failed to send email: {ex.Message}");
             }
+            return Ok("Email sent successfully.");
         }
     }
 }

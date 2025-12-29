@@ -1,66 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Automated Email</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
 </head>
-<body style="margin:0; padding:0; font-family:Arial, sans-serif; background-color:#f4f4f4;">
-  <table align="center" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:20px auto; border-radius:8px; overflow:hidden; box-shadow:0 0 10px rgba(0,0,0,0.1);">
-    
-    <!-- Header -->
-    <tr style="background-color:#000000; color:#ffffff;">
-      <td style="padding:20px; text-align:center;">
-        <img src="../../../public/infinnium_white.svg" alt="Email Icon" width="150" style="vertical-align:middle;">
-        <!-- <h2 style="margin:0; display:inline-block; margin-left:10px;">Infinnium Infotech</h2> -->
-      </td>
-    </tr>
 
-    <!-- Body -->
-    <tr>
-      <td style="padding:30px;">
-        <h3 style="color:#333333;">Hello [User's Name],</h3>
-        <p style="color:#555555; line-height:1.6;">
-          This is an automated message from the Infinnium team. We wanted to inform you that your recent activity has triggered an automated event.
-        </p>
-        <p style="color:#555555; line-height:1.6;">
-          Here are the details of the event:
-        </p>
-        <ul style="color:#555555; line-height:1.6; padding-left:20px;">
-          <li>Event Type: <strong>System Update</strong></li>
-          <li>Date: <strong>April 14, 2025</strong></li>
-          <li>Status: <strong>Success</strong></li>
-        </ul>
-        <p style="color:#555555; line-height:1.6;">
-          No action is required on your part at this moment. If you believe this email was sent in error or you need further assistance, feel free to reach out.
-        </p>
-        <p style="color:#555555; line-height:1.6;">
-          Thank you for staying with us!
-        </p>
-        <p style="color:#333333;">
-          – The Infinnium Team
-        </p>
-      </td>
-    </tr>
-
-    <!-- Footer -->
-    <tr style="background-color:#f0f0f0; text-align:center;">
-      <td style="padding:20px;">
-        <p style="margin:0; font-size:14px; color:#888888;">Stay connected</p>
-        <div style="margin:10px 0;">
-          <a style="margin:0 10px;">
-            <img src="https://img.icons8.com/color/48/000000/facebook-new.png" width="24" alt="Facebook">
-          </a>
-          <a style="margin:0 10px;">
-            <img src="https://img.icons8.com/color/48/000000/twitter--v1.png" width="24" alt="Twitter">
-          </a>
-          <a style="margin:0 10px;">
-            <img src="https://img.icons8.com/color/48/000000/linkedin.png" width="24" alt="LinkedIn">
-          </a>
-        </div>
-        <p style="margin:0; font-size:12px; color:#aaaaaa;">&copy; 2025 Infinnium Infotech. All rights reserved.</p>
-      </td>
-    </tr>
-
-  </table>
+<body style="Margin: 0!important; padding: 15px; background-color: #F7F7F7;">
+  <div style="width: 100%; table-layout: fixed;">
+    <div style="width: 100%; max-width: 670px; Margin: 0 auto;">
+      <table style="border-spacing: 0; font-family: sans-serif; color: #727f80; max-width: 610px; margin: 0 auto;"
+             width="100%">
+        <tr>
+          <td style="padding: 0;">
+            <table style="border-spacing: 0; font-family: sans-serif; color: #727f80; margin-bottom: 10px;"
+                   width="100%">
+              <tr>
+                <td style="padding: 0;" align="center">
+                  <a>
+                    <img src='data:image/png;base64,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' />
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <div></div>
+          </td>
+        </tr>
+      </table>
+      <div style="margin:0;">
+        <table style="border-spacing: 0; font-family: sans-serif; color: #727f80;   max-width: 610px; margin: 0 auto; background-color: #FFF; border-top: 10px solid #e76f51; border-bottom : 10px solid #e76f51; padding: 0 30px; box-shadow: 2px 2px 10px rgba(68, 68, 68, 0.2);"
+               width="100%">
+          <tr>
+            <td style="padding: 0;">
+              <table style="border-spacing: 0; font-family: sans-serif; color: #727f80; margin: 0 auto;"
+                     width="100%">
+                <tr>
+                  <td style="padding: 20px; margin: 0 auto; font-family: 'Poppins',sans-serif; font-weight: 600; color: #264653;"
+                      class="heading">
+                    <p style="Margin:0; font-size: 28px; text-align: center; ">
+                      Hello, <span style="color: #e76f51;">
+                        [User's Name]
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <table style="border-spacing: 0; font-family: sans-serif; color: #727f80;" width="100%">
+                <tr>
+                  <td style="padding: 0; border-top: 1px solid #c2c2c2; border-bottom: 1px solid #c2c2c2; padding: 5% 10% 5% 12%;">
+                    <table style="border-spacing: 0; font-family: sans-serif; color: #727f80;"
+                           width="100%">
+                      <tr>
+                        <td style="padding: 0; font-size: 13px; Margin-top: 1%; font-family: 'Roboto', sans-serif;">
+                          <p style="margin:0;">
+                            This is an automated message from the Infinnium
+                            team. We wanted to inform you that your recent activity has
+                            triggered an automated event.
+                          </p>
+                          </br>
+                          <p style="margin: 0.25rem 0;">Here are the details of the event:</p>
+                        </td>
+                      </tr>
+                    </table>
+                    <table style="border-spacing: 0;" width="100%">
+                      <tr>
+                        <td style="padding: 0; color: #727f80; font-size: 13px; Margin-top: 1%; font-family: 'Roboto', sans-serif;">
+                          <div style="padding: 10px; border-bottom: 1px solid #e76f51; width: 100%;">
+                            Event type : <span style="font-weight: 600; color: #264653; margin-left: 5%;">
+                              Inquiry
+                            </span>
+                          </div>
+                          <div style="padding: 10px; border-bottom: 1px solid #e76f51; width: 100%;">
+                            Date &amp; Time : <span style="font-weight: 600; color: #264653; margin-left: 2.5%;">
+                              [ContactUsRecordDate]
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <table style="border-spacing: 0; font-family: sans-serif; color: #727f80;"
+                           width="100%">
+                      <tr>
+                        <td style="padding: 0; font-size: 13px; Margin-top: 1%; font-family: 'Roboto', sans-serif;">
+                          </br>
+                          <p style="margin:0;">
+                            No action is required on your part at this
+                            moment. If you believe this email was sent in error or you need
+                            further assistance, feel free to reach out.
+                          </p>
+                          <p style="margin: 0px"><a href="mailto:hello@Infinnium.com" target="_blank">hello@infinnium.com</a></p>
+                        </td>
+                      </tr>
+                    </table>
+                    <table style="border-spacing: 0; font-family: sans-serif; color: #727f80;"
+                           width="100%">
+                      <tr>
+                        <td style="padding: 0; font-size: 13px; Margin-top: 1%; font-family: 'Roboto', sans-serif;">
+                          </br>
+                          <p style="margin:0;">Thank you for staying with us!</p>
+                          <p style="margin:0;">&ndash; The Infinnium Team</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <table style="width: 100%; Margin: 0 auto; color: #FFF; padding: 0px;" width="100%">
+                <tr>
+                  <td style="padding: 2% 0px;">
+                    <table style="border-spacing: 0; font-family: sans-serif; color: #727f80; margin: 0px"
+                           width="100%">
+                      <tr>
+                        <td style="padding: 0;" align="center">
+                          <p style="margin:0; font-size: 10px;">Stay connected</p>
+                        </td>
+                      </tr>
+                    </table>
+                    <table style="border-spacing: 0; font-family: sans-serif; color: #727f80; margin: 0px auto; margin-top: 3px;"
+                           width="auto">
+                      <tr>
+                        <td style="padding: 0;">
+                          <a href="https://www.linkedin.com/company/infinnium" target="_blank">
+                            <img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiMwMDY2OTkiPjxwYXRoIGZpbGw9IiMwMDY2OTkiIGQ9Ik0xOSAzYTIgMiAwIDAgMSAyIDJ2MTRhMiAyIDAgMCAxLTIgMkg1YTIgMiAwIDAgMS0yLTJWNWEyIDIgMCAwIDEgMi0yaDE0bS0uNSAxNS41di01LjNhMy4yNiAzLjI2IDAgMCAwLTMuMjYtMy4yNmMtLjg1IDAtMS44NC41Mi0yLjMyIDEuM3YtMS4xMWgtMi43OXY4LjM3aDIuNzl2LTQuOTNjMC0uNzcuNjItMS40IDEuMzktMS40YTEuNCAxLjQgMCAwIDEgMS40IDEuNHY0LjkzaDIuNzlNNi44OCA4LjU2YTEuNjggMS42OCAwIDAgMCAxLjY4LTEuNjhjMC0uOTMtLjc1LTEuNjktMS42OC0xLjY5YTEuNjkgMS42OSAwIDAgMC0xLjY5IDEuNjljMCAuOTMuNzYgMS42OCAxLjY5IDEuNjhtMS4zOSA5Ljk0di04LjM3SDUuNXY4LjM3aDIuNzdaIi8+PC9zdmc+' height="23px" width="23px" alt="linkedIn_icon" />
+                          </a>
+                        </td>
+                        <td style="padding: 0; padding-left: 10px;">
+                          <a href="https://x.com/infinnium1" target="_blank">
+                            <img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9IiMwMDAwMDAiPjxwYXRoIGZpbGw9IiMwMDAwMDAiIGQ9Ik05LjMzMyA2LjkyOUwxNC41NDYgMUgxMy4zMUw4Ljc4MyA2LjE0N0w1LjE2OSAxSDFsNS40NjYgNy43ODNMMSAxNWgxLjIzNWw0Ljc3OS01LjQzNkwxMC44MyAxNUgxNXpNNy42NDEgOC44NTJsLS41NTQtLjc3NkwyLjY4IDEuOTExaDEuODk4bDMuNTU3IDQuOTc3bC41NTIuNzc2bDQuNjIzIDYuNDdoLTEuODk3eiIvPjwvc3ZnPg==' height="17px" width="17px" alt="linkedIn_icon" />
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                    <table style="border-spacing: 0; font-family: sans-serif; color: #727f80; margin: 0px"
+                           width="100%">
+                      <tr>
+                        <td style="padding: 0;" align="center">
+                          <p style="margin:0; font-size: 10px;">&copy; 2025 Infinnium Infotech. All rights reserved.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

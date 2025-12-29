@@ -12,6 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Add configuration sources based on environment
+builder.Configuration.SetBasePath(Directory.GetCurrentDirectory());
+if (builder.Environment.EnvironmentName == "Development")
+{
+    builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
+} else
+{
+    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+}
+
 // Add login credentials
 builder.Services.Configure<LoginConfig>(builder.Configuration.GetSection("EmailLoginCredentials"));
 builder.Services.AddSingleton<LoginConfig>();

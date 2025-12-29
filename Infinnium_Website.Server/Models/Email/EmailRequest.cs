@@ -2,8 +2,9 @@
 {
     public class EmailRequest
     {
+        public string User { get; set; }
         public string Receiver { get; set; }
         public string Subject { get; set; }
-        public string Body { get; set; }
+        public DateTime currentTimeStamp { get; set; }
     }
 }
