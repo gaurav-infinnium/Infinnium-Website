@@ -21,7 +21,7 @@ export class AuthorService {
     this.BASE_URL = this.config.enApiUrl;
   }
 
-  async getAllAuthors(): Promise<
+  async getAllAuthorsForAdmin(): Promise<
     {
       id: number;
       name: string;
@@ -31,6 +31,7 @@ export class AuthorService {
       guid: string;
       image: string;
       socialMediaLink: string;
+      isActive: boolean;
     }[]
   > {
     try {
@@ -45,6 +46,48 @@ export class AuthorService {
             guid: string;
             image: string;
             socialMediaLink: string;
+            isActive: boolean;
+          }[]
+        >(`${this.BASE_URL}/Author/GetAllAuthorsForAdmin`)
+      );
+      const updatedResponse = response.map((item) => {
+        if (item.image) {
+          item.image = `data:image/jpeg;base64,${item.image}`;
+        }
+        return item;
+      });
+      return updatedResponse;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllAuthors(): Promise<
+    {
+      id: number;
+      name: string;
+      description: string;
+      email: string;
+      designation: string;
+      guid: string;
+      image: string;
+      socialMediaLink: string;
+      isActive: boolean;
+    }[]
+  > {
+    try {
+      const response = await firstValueFrom(
+        this.httpClient.get<
+          {
+            id: number;
+            name: string;
+            description: string;
+            email: string;
+            designation: string;
+            guid: string;
+            image: string;
+            socialMediaLink: string;
+            isActive: boolean;
           }[]
         >(`${this.BASE_URL}/Author/GetAllAuthors`)
       );
@@ -142,7 +185,8 @@ export class AuthorService {
       formData.append('Description', author.description);
       formData.append('LinkedInLink', author.linkedin);
       formData.append('Guid', author.id);
-      formData.append('ImageName', author.image.name);
+      formData.append('ImageName', author.image.name ?? '');
+      formData.append('isActive', String(author.isActive ?? true));
 
       const token = this.auth.getToken();
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -154,6 +198,19 @@ export class AuthorService {
         .subscribe();
       //console.log("Api called");
       return 'Successfull';
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  deleteAuthor(guid: string) {
+    try {
+      const token = this.auth.getToken();
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      this.httpClient
+        .delete(`${this.BASE_URL}/Author/DeleteAuthor/${guid}`, { headers })
+        .subscribe();
+      return 'Successful';
     } catch (error) {
       throw error;
     }

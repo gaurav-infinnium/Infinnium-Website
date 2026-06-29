@@ -62,10 +62,10 @@ export const routes: Routes = [
     canDeactivate: [AdminGuard],
   },
   {
-    path: 'dashboard/update-members',
+    path: 'dashboard/add-member',
     loadComponent: () =>
-      import('./founders-layout/founders-layout.component').then(
-        (m) => m.FoundersLayoutComponent
+      import('./edit-founders/edit-founders.component').then(
+        (m) => m.EditFoundersComponent
       ),
     canActivate: [AdminGuard],
     canDeactivate: [AdminGuard],

@@ -1,11 +1,7 @@
-﻿using System.Data;
-using System.Reflection.Metadata;
-using Infinnium_Website.Server.Models.Authors;
+﻿using Infinnium_Website.Server.Models.Authors;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Infinnium_Website.Server.Controllers
 {
@@ -43,6 +39,7 @@ namespace Infinnium_Website.Server.Controllers
                     author.Description = Convert.ToString(reader["Description"]);
                     author.Guid = Convert.ToString(reader["ShortGuid"]);
                     author.SocialMediaLink = Convert.ToString(reader["SocialLink"]);
+                    author.isActive = Convert.ToBoolean(reader["isActive"]);
 
                     if (reader["Images"] != DBNull.Value)
                     {
@@ -89,7 +86,7 @@ namespace Infinnium_Website.Server.Controllers
                     author.Description = Convert.ToString(reader["Description"]);
                     author.Guid = Convert.ToString(reader["ShortGuid"]);
                     author.SocialMediaLink = Convert.ToString(reader["SocialLink"]);
-
+                    author.isActive = Convert.ToBoolean(reader["isActive"]);
                     if (reader["Images"] != null)
                     {
                         author.Image = (byte[])reader["Images"];
@@ -104,6 +101,55 @@ namespace Infinnium_Website.Server.Controllers
                 con.Close();
             }
             return author;
+        }
+
+        // GET: AuthorController/GetAllAuthors for admin panel
+        [HttpGet]
+        [Route("GetAllAuthorsForAdmin")]
+        public List<AuthorModel> GetAllAuthorsForAdmin()
+        {
+            List<AuthorModel> authors = new List<AuthorModel>();
+            string cs = config.GenerateConnection();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("[dbo].[CRUD_Authors]", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@case", 6);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var author = new AuthorModel();
+
+                    author.Id = Convert.ToInt32(reader["Id"]);
+                    author.Name = Convert.ToString(reader["Name"]);
+                    author.Email = Convert.ToString(reader["Email"]);
+                    author.Designation = Convert.ToString(reader["Designation"]);
+                    author.Description = Convert.ToString(reader["Description"]);
+                    author.Guid = Convert.ToString(reader["ShortGuid"]);
+                    author.SocialMediaLink = Convert.ToString(reader["SocialLink"]);
+                    author.isActive = Convert.ToBoolean(reader["isActive"]);
+
+                    if (reader["Images"] != DBNull.Value)
+                    {
+                        author.Image = (byte[])reader["Images"];
+                        author.ImageName = Convert.ToString(reader["ImageName"]);
+                    }
+                    else
+                    {
+                        author.Image = null;
+                        author.ImageName = null;
+                    }
+
+                    authors.Add(author);
+                }
+
+                con.Close();
+            }
+            return authors;
         }
 
         // -----------------------------------------------------------------------------------------------------------------------
@@ -177,7 +223,8 @@ namespace Infinnium_Website.Server.Controllers
                 Description = Request.Form["Description"],
                 LinkedInLink = Request.Form["LinkedInLink"],
                 Guid = Request.Form["Guid"],
-                ImageName = Request.Form["ImageName"]
+                ImageName = Request.Form["ImageName"],
+                isActive = Convert.ToBoolean(Request.Form["isActive"])
             };
 
             IFormFile Image = Request.Form.Files["Image"];
@@ -197,6 +244,7 @@ namespace Infinnium_Website.Server.Controllers
                 cmd.Parameters.AddWithValue("@Description", member.Description);
                 cmd.Parameters.AddWithValue("@Designation", member.Designation);
                 cmd.Parameters.AddWithValue("@SocialLink", member.LinkedInLink);
+                cmd.Parameters.AddWithValue("@isActive", member.isActive);
 
                 if (Image != null)
                 {
@@ -208,6 +256,29 @@ namespace Infinnium_Website.Server.Controllers
                     cmd.Parameters.AddWithValue("@Image", imageData);
                     cmd.Parameters.AddWithValue("@ImageName", member.ImageName);
                 }
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+        }
+
+        // DELETE: AuthorController/DeleteAuthor/{guid}
+        [HttpDelete]
+        [Authorize]
+        [Route("DeleteAuthor/{guid}")]
+        public void DeleteAuthor(string guid)
+        {
+            string cs = config.GenerateConnection();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("[dbo].[CRUD_Authors]", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@case", 4);
+                cmd.Parameters.AddWithValue("@ShortGuid", guid);
 
                 cmd.ExecuteNonQuery();
 

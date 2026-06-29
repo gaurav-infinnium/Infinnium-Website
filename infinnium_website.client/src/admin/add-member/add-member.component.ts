@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthorService } from '../../services/authorService.service';
 import { NgIf } from '@angular/common';
 
@@ -18,7 +19,7 @@ export class AddMemberComponent implements OnInit {
   memberForm!: FormGroup;
   previewUrl: string | ArrayBuffer | null = null;
 
-  constructor(private fb: FormBuilder, private authorService: AuthorService) {}
+  constructor(private fb: FormBuilder, private authorService: AuthorService, private router: Router) {}
 
   ngOnInit() {
     this.memberForm = this.fb.group({
@@ -71,5 +72,9 @@ export class AddMemberComponent implements OnInit {
     }
     this.memberForm.reset();
     this.previewUrl = null;
+  }
+
+  cancel(): void {
+    this.router.navigateByUrl('/dashboard');
   }
 }

@@ -1,23 +1,39 @@
+<!-- ===== BLOGS SECTION ===== -->
 <section class="bg-white py-20 px-4 sm:px-6 lg:px-20 mt-[3.25rem]"
   style="font-family: 'Manrope', 'Open Sans', sans-serif;">
   <div class="max-w-8xl mx-auto">
-    <div class="relative mb-6 flex">
-      <!-- Centered Heading -->
-      <h1 class="text-3xl font-bold text-gray-800 text-center">BLOGS</h1>
 
-      <!-- Right-aligned Filter Dropdown -->
-      <div class="absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center">
-        <label for="filter" class="mr-2 text-gray-700 font-medium whitespace-nowrap">Filter:</label>
-        <select id="filter" [(ngModel)]="selectedStatus" (change)="filterBlogs()"
-          class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E76F51] focus:border-transparent transition duration-200 ease-in-out hover:border-[#E76F51]">
-          <option value="all">All</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
+    <!-- Section header -->
+    <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+      <div class="flex items-center gap-3">
+        <h1 class="text-3xl font-bold text-gray-800">BLOGS</h1>
+        <a routerLink="/dashboard/add-Blog"
+          class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#E76F51] text-white hover:bg-[#D65C3D] transition duration-200 text-xl font-bold leading-none"
+          title="Add Blog">+</a>
+      </div>
+      <div class="flex items-center gap-1 bg-gray-100 rounded-full p-1">
+        <button (click)="selectedBlogStatus='all'; filterBlogs()"
+          [ngClass]="selectedBlogStatus === 'all'
+            ? 'px-4 py-1.5 rounded-full text-sm font-medium bg-[#E76F51] text-white shadow-sm'
+            : 'px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 hover:text-gray-800'">
+          All
+        </button>
+        <button (click)="selectedBlogStatus='active'; filterBlogs()"
+          [ngClass]="selectedBlogStatus === 'active'
+            ? 'px-4 py-1.5 rounded-full text-sm font-medium bg-[#E76F51] text-white shadow-sm'
+            : 'px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 hover:text-gray-800'">
+          Active
+        </button>
+        <button (click)="selectedBlogStatus='inactive'; filterBlogs()"
+          [ngClass]="selectedBlogStatus === 'inactive'
+            ? 'px-4 py-1.5 rounded-full text-sm font-medium bg-[#E76F51] text-white shadow-sm'
+            : 'px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 hover:text-gray-800'">
+          Inactive
+        </button>
       </div>
     </div>
 
-    <!-- Show skeleton only when data is loading -->
+    <!-- Skeleton loader -->
     <div *ngIf="!isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
       <div class="h-[29rem] rounded-lg bg-white max-w-sm relative animate-pulse" *ngFor="let skel of [1,2,3,4]">
         <div class="w-80 h-40 bg-gray-300 rounded-t-lg"></div>
@@ -36,85 +52,93 @@
       </div>
     </div>
 
-    <!-- Container for all blogs in a row -->
+    <!-- Blog cards -->
     <div *ngIf="isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
-      <div class="h-[29rem] rounded-lg bg-white  max-w-sm relative group [box-shadow:0_0_15px_rgba(0,0,0,0.15)]"
+      <div class="h-[29rem] rounded-lg bg-white max-w-sm relative group [box-shadow:0_0_15px_rgba(0,0,0,0.15)]"
         *ngFor="let blog of filteredBlogs; let i = index;">
-        <!-- Red exclamation icon if blog is not active -->
-        <div class="absolute bottom-[1.9rem] right-[4rem] text-red-600 text-xs" title="Inactive blog">
-          <!--<i class="fa-solid fa-ban"></i>-->
-        </div>
+
+        <div class="absolute bottom-[1.9rem] right-[4rem] text-red-600 text-xs" title="Inactive blog"></div>
 
         <label class="absolute bottom-2 right-[4rem] inline-flex items-center cursor-pointer" title="Status">
           <input type="checkbox" id="isActive" [checked]="blog.isActive" class="sr-only peer"
             (click)="toggleEditBlog($event, blog)" />
-          <div
-            class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer-checked:bg-[#E76F51] transition-all duration-300">
-          </div>
-          <div
-            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 peer-checked:translate-x-5">
-          </div>
+          <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer-checked:bg-[#E76F51] transition-all duration-300"></div>
+          <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 peer-checked:translate-x-5"></div>
         </label>
 
-        <!-- Hover buttons -->
         <div class="absolute bottom-2 right-2 flex gap-2 opacity-100 group-hover:opacity-100 transition-opacity">
           <button (click)="editBlog(blog)"
             class="border-[1.5px] border-[#E76F51] text-white text-sm px-2 py-1 rounded overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
             Edit
           </button>
-          <!--<button class="bg-red-500 text-white text-sm px-2 py-1 rounded hover:bg-red-600" (click)="deleteBlog(blog.id)">
-      Delete
-    </button>-->
         </div>
         <a class="w-80">
           <img class="rounded-t-lg h-40 w-80 object-cover" [src]="blog.image" alt="blog_image" />
         </a>
         <div class="p-4 w-80">
           <a>
-            <h5 class="mb-2 text-xl font-bold tracking-tight text-black">
-              {{ blog.title }}
-            </h5>
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-black">{{ blog.title }}</h5>
           </a>
-          <p class="mb-4 text-gray-400 dark:text-gray-500">
-            {{ blog.brief }}
-          </p>
+          <p class="mb-4 text-gray-400 dark:text-gray-500">{{ blog.brief }}</p>
           <div class="absolute bottom-2">
             <p class="text-gray-700 dark:text-gray-700">
               <i class="far fa-calendar-alt mr-1"></i> {{ blog.publishedDate | date: 'longDate' }}
             </p>
             <a [routerLink]="['/resources/blogs/', slugify(blog.title), blog.guid]"
+              target="_blank"
               class="text-[#E76F51] hover:text-[#E65A4E] font-normal mt-1 inline-block hover:underline cursor-pointer">
               Read More →
             </a>
           </div>
-          <!--[routerLink]="['/Resources/Blogs/', blog.title, blog.guid]"-->
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ===== NEWS AND EVENTS SECTION ===== -->
 <section class="bg-gray-200 py-20 px-4 sm:px-6 lg:px-20" style="font-family: 'Manrope', 'Open Sans', sans-serif;">
   <div class="max-w-8xl mx-auto">
-    <div class="relative mb-8 flex">
-      <h1 class="text-3xl font-bold text-gray-800 text-left">
-        NEWS AND
-        <span class="block md:inline">EVENTS</span>
-      </h1>
 
-      <!-- Right-aligned Filter Dropdown -->
-      <div class="absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center">
-        <label for="filter" class="mr-2 text-gray-700 font-medium whitespace-nowrap">Filter:</label>
-        <select id="filter" [(ngModel)]="selectedStatus" (change)="filterNews()"
-          class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E76F51] focus:border-transparent transition duration-200 ease-in-out hover:border-[#E76F51]">
-          <option value="all">All</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
+    <!-- Section header -->
+    <div class="flex items-center justify-between mb-8 flex-wrap gap-3">
+      <div class="flex items-center gap-3">
+        <h1 class="text-3xl font-bold text-gray-800">NEWS AND <span class="block md:inline">EVENTS</span></h1>
+        <a routerLink="/dashboard/add-News"
+          class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#E76F51] text-white hover:bg-[#D65C3D] transition duration-200 text-xl font-bold leading-none"
+          title="Add News">+</a>
+      </div>
+      <div class="flex items-center gap-1 bg-white rounded-full p-1 shadow-sm">
+        <button (click)="selectedNewsStatus='all'; filterNews()"
+          [ngClass]="selectedNewsStatus === 'all'
+            ? 'px-4 py-1.5 rounded-full text-sm font-medium bg-[#E76F51] text-white shadow-sm'
+            : 'px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 hover:text-gray-800'">
+          All
+        </button>
+        <button (click)="selectedNewsStatus='active'; filterNews()"
+          [ngClass]="selectedNewsStatus === 'active'
+            ? 'px-4 py-1.5 rounded-full text-sm font-medium bg-[#E76F51] text-white shadow-sm'
+            : 'px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 hover:text-gray-800'">
+          Active
+        </button>
+        <button (click)="selectedNewsStatus='inactive'; filterNews()"
+          [ngClass]="selectedNewsStatus === 'inactive'
+            ? 'px-4 py-1.5 rounded-full text-sm font-medium bg-[#E76F51] text-white shadow-sm'
+            : 'px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 hover:text-gray-800'">
+          Inactive
+        </button>
       </div>
     </div>
 
-    <!-- Show skeleton only when data is loading -->
+    <!-- Info note -->
+    <div class="flex items-start gap-3 bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 mb-6 text-sm text-amber-800">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 mt-0.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z"/>
+      </svg>
+      <p>News and Events are <span class="font-semibold">not currently part of the main website</span>. Any operations performed here will not directly affect the public-facing website.</p>
+    </div>
+
+    <!-- Skeleton loader -->
     <div *ngIf="!isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
       <div class="h-[29rem] rounded-lg bg-white max-w-sm relative animate-pulse" *ngFor="let skel of [1,2,3,4]">
         <div class="w-80 h-40 bg-gray-300 rounded-t-lg"></div>
@@ -133,23 +157,18 @@
       </div>
     </div>
 
-    <!-- Container for all blogs in a row -->
+    <!-- News cards -->
     <div *ngIf="isContentLoaded" class="flex flex-row flex-wrap lg:gap-6 gap-2 lg:justify-start justify-center">
-      <div class="h-[29rem] rounded-lg bg-white max-w-sm relative group [box-shadow:0_0_15px_rgba(0,0,0,0.15)] "
+      <div class="h-[29rem] rounded-lg bg-white max-w-sm relative group [box-shadow:0_0_15px_rgba(0,0,0,0.15)]"
         *ngFor="let blog of filteredNews; let i = index;">
 
         <label class="absolute bottom-2 right-[4rem] inline-flex items-center cursor-pointer" title="Status">
           <input type="checkbox" id="isActive" [checked]="blog.isActive" class="sr-only peer"
             (click)="toggleEditNews($event, blog)" />
-          <div
-            class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer-checked:bg-[#E76F51] transition-all duration-300">
-          </div>
-          <div
-            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 peer-checked:translate-x-5">
-          </div>
+          <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer-checked:bg-[#E76F51] transition-all duration-300"></div>
+          <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 peer-checked:translate-x-5"></div>
         </label>
 
-        <!-- Hover buttons -->
         <div class="absolute bottom-2 right-2 flex gap-2 opacity-100 group-hover:opacity-100 transition-opacity">
           <button (click)="editNews(blog)" style="font-family: 'Manrope', 'Open Sans', sans-serif;"
             class="border-[1.5px] border-[#E76F51] text-white text-sm px-2 py-1 rounded overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D]">
@@ -161,18 +180,15 @@
         </a>
         <div class="p-4 w-80">
           <a>
-            <h5 class="mb-2 text-xl font-bold tracking-tight text-black">
-              {{ blog.title }}
-            </h5>
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-black">{{ blog.title }}</h5>
           </a>
-          <p class="mb-4 text-gray-400 dark:text-gray-500">
-            {{ blog.brief }}
-          </p>
+          <p class="mb-4 text-gray-400 dark:text-gray-500">{{ blog.brief }}</p>
           <div class="absolute bottom-2">
             <p class="text-gray-700 dark:text-gray-700">
               <i class="far fa-calendar-alt mr-1"></i> {{ blog.publishedDate | date: 'longDate' }}
             </p>
             <a [routerLink]="['/resources/news-and-events/', slugify(blog.title), blog.guid]"
+              target="_blank"
               class="text-[#E76F51] hover:text-[#E65A4E] font-normal mt-1 inline-block hover:underline cursor-pointer">
               Read More →
             </a>
@@ -183,19 +199,95 @@
   </div>
 </section>
 
+<!-- ===== MEMBERS SECTION ===== -->
+<section class="bg-white py-20 px-4 sm:px-6 lg:px-20" style="font-family: 'Manrope', 'Open Sans', sans-serif;">
+  <div class="max-w-8xl mx-auto">
+
+    <!-- Section header -->
+    <div class="flex items-center mb-8">
+      <div class="flex items-center gap-3">
+        <h1 class="text-3xl font-bold text-gray-800">MEMBERS</h1>
+        <a routerLink="/dashboard/add-member"
+          class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#E76F51] text-white hover:bg-[#D65C3D] transition duration-200 text-xl font-bold leading-none"
+          title="Add Member">+</a>
+      </div>
+    </div>
+
+    <!-- Skeleton loader -->
+    <div *ngIf="!isContentLoaded" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white flex rounded-xl shadow-md overflow-hidden animate-pulse" *ngFor="let skel of [1,2,3,4]">
+        <div class="w-36 h-36 bg-gray-300 flex-shrink-0"></div>
+        <div class="p-4 flex-1 space-y-3">
+          <div class="h-5 bg-gray-300 rounded w-1/2"></div>
+          <div class="h-4 bg-gray-200 rounded w-1/3"></div>
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-4/5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Member cards -->
+    <div *ngIf="isContentLoaded" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex rounded-xl overflow-hidden relative group [box-shadow:0_0_15px_rgba(0,0,0,0.1)]"
+        [ngClass]="!author.isActive ? 'bg-gray-50 ring-1 ring-red-300' : 'bg-white'"
+        *ngFor="let author of authors">
+
+        <!-- Inactive badge -->
+        <span *ngIf="!author.isActive"
+          class="absolute top-2 left-2 z-10 bg-red-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide">
+          Inactive
+        </span>
+
+        <div
+          class="absolute top-3 right-3 cursor-pointer"
+          (click)="editMember(author)" title="Edit">
+          <i class="fa-solid fa-pen-to-square text-gray-600 hover:text-[#E76F51] transition-colors duration-200 hover:scale-125 transform"></i>
+        </div>
+        <img [src]="author.image" alt="{{ author.name }}"
+          class="w-36 h-auto object-cover rounded-l-xl flex-shrink-0 transition-all duration-300"
+          [ngClass]="!author.isActive ? 'grayscale opacity-50' : ''" />
+        <div class="p-4 flex flex-col justify-between flex-1 min-w-0">
+          <div>
+            <h2 class="text-lg font-semibold" [ngClass]="!author.isActive ? 'text-gray-400' : 'text-gray-800'">{{ author.name }}</h2>
+            <p class="text-sm font-medium" [ngClass]="!author.isActive ? 'text-gray-400' : 'text-[#2A9D8F]'">{{ author.designation }}</p>
+            <p class="text-gray-400 text-sm mt-2 line-clamp-3">{{ author.description }}</p>
+            <div class="flex items-center mt-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 30 30" fill="none" class="flex-shrink-0">
+                <path d="M3.75 8.75C3.75 8.08696 4.01339 7.45107 4.48223 6.98223C4.95107 6.51339 5.58696 6.25 6.25 6.25H23.75C24.413 6.25 25.0489 6.51339 25.5178 6.98223C25.9866 7.45107 26.25 8.08696 26.25 8.75V21.25C26.25 21.913 25.9866 22.5489 25.5178 23.0178C25.0489 23.4866 24.413 23.75 23.75 23.75H6.25C5.58696 23.75 4.95107 23.4866 4.48223 23.0178C4.01339 22.5489 3.75 21.913 3.75 21.25V8.75Z" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.75 8.75L15 16.25L26.25 8.75" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p class="ml-2 text-sm text-gray-600 truncate">{{ author.email }}</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+            <button (click)="openDeleteMemberPopup(author)" title="Delete Member"
+              class="flex items-center gap-1.5 text-sm text-red-400 hover:text-red-600 cursor-pointer transition-colors duration-200">
+              <i class="fa-solid fa-trash text-xs"></i>
+              <span>Delete</span>
+            </button>
+            <a [routerLink]="['/aboutUs/member/', slugify(author.name), author.guid]"
+              target="_blank"
+              class="text-[#E76F51] hover:text-[#E65A4E] text-sm font-normal hover:underline cursor-pointer">
+              Read More →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POPUPS ===== -->
+
 <div *ngIf="showDeletePopup"
   class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
-    <!-- Close Button -->
     <button
       class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
-      (click)="closePopup()" aria-label="Close">
-      &times;
-    </button>
-    <h3 class="text-xl font-semibold mb-4">Please cofirm before Delete!</h3>
+      (click)="closePopup()" aria-label="Close">&times;</button>
+    <h3 class="text-xl font-semibold mb-4">Please confirm before Delete!</h3>
     <p class="mb-6">You are going to delete this blog from the public website <a
-        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>
-    </p>
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a></p>
     <button (click)="closePopup()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
       Confirm DELETE
     </button>
@@ -205,17 +297,12 @@
 <div *ngIf="showEditPopup"
   class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
   <div class="relative bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
-    <!-- Close Button -->
     <button
       class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
-      (click)="closePopup()" aria-label="Close">
-      &times;
-    </button>
-    <h3 class="text-xl font-semibold mb-4">Please cofirm before Edit!</h3>
-    <p class="mb-6">
-      You are going to edit this blog from the public website <a
-        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>
-    </p>
+      (click)="closePopup()" aria-label="Close">&times;</button>
+    <h3 class="text-xl font-semibold mb-4">Please confirm before Edit!</h3>
+    <p class="mb-6">You are going to edit this blog from the public website <a
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a></p>
     <button (click)="navigateEditBlog()"
       class="border-[1.5px] border-[#E76F51] text-white px-6 py-2 rounded-3xl overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
       Confirm EDIT
@@ -226,20 +313,56 @@
 <div *ngIf="showEditNewsPopup"
   class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
   <div class="relative bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
-    <!-- Close Button -->
     <button
       class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
-      (click)="closePopup()" aria-label="Close">
-      &times;
-    </button>
-    <h3 class="text-xl font-semibold mb-4">Please cofirm before Edit!</h3>
-    <p class="mb-6">
-      You are going to edit this News/Events from the public website <a
-        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>
-    </p>
+      (click)="closePopup()" aria-label="Close">&times;</button>
+    <h3 class="text-xl font-semibold mb-4">Please confirm before Edit!</h3>
+    <p class="mb-6">You are going to edit this News/Events from the public website <a
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a></p>
     <button (click)="navigateEditNewsBlog()"
       class="border-[1.5px] border-[#E76F51] text-white px-6 py-2 rounded-3xl overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
       Confirm EDIT
     </button>
+  </div>
+</div>
+
+<div *ngIf="showEditMemberPopup"
+  class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="relative bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
+    <button
+      class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
+      (click)="closePopup()" aria-label="Close">&times;</button>
+    <h3 class="text-xl font-semibold mb-4">Please confirm before Edit!</h3>
+    <p class="mb-6">You are going to edit a member's details on <a
+        class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a></p>
+    <button (click)="navigateEditMember()"
+      class="border-[1.5px] border-[#E76F51] text-white px-6 py-2 rounded-3xl overflow-hidden transition-all duration-300 ease-in-out cursor-pointer bg-[#E76F51] hover:bg-[#D65C3D] transition">
+      Confirm EDIT
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showDeleteMemberPopup"
+  class="fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="relative bg-white p-6 rounded-2xl shadow-xl text-center max-w-sm">
+    <button
+      class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold focus:outline-none"
+      (click)="closePopup()" aria-label="Close">&times;</button>
+    <h3 class="text-xl font-semibold mb-2">Delete Member?</h3>
+    <p class="mb-6 text-gray-500 text-sm">You are about to permanently delete
+      <span class="font-semibold text-gray-800">{{ member_to_delete.name }}</span>
+      from <a class="text-blue-600 hover:underline hover:text-blue-800 cursor-pointer">infinnium.com</a>.
+      This action cannot be undone.
+    </p>
+    <div class="flex gap-3">
+      <button (click)="closePopup()"
+        class="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 font-medium cursor-pointer">
+        Cancel
+      </button>
+      <button (click)="confirmDeleteMember()"
+        class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 font-medium cursor-pointer">
+        Confirm Delete
+      </button>
+    </div>
   </div>
 </div>

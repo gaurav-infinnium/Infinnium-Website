@@ -154,5 +154,13 @@ namespace Infinnium_Website.Server.Controllers
         //    string encryptedText = encryptionHelper.Encrypt(inputPlainText);
         //    return encryptedText;
         //}
+
+        //[HttpPost]
+        //[Route("convertEncrpytText")]
+        //public string convertEncrpytText([FromBody] string inputEncrpytText)
+        //{
+        //    string decryptedText = encryptionHelper.Decrypt(inputEncrpytText);
+        //    return decryptedText;
+        //}
     }
 }

@@ -33,6 +33,7 @@ export class EditFoundersComponent implements OnInit {
   originalFile: File | null = null;
   showPopup = false;
   authorId: any = '';
+  isAddMode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +43,9 @@ export class EditFoundersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authorId = this.route.snapshot.paramMap.get('guid');
+    this.isAddMode = !this.authorId;
+
     this.memberForm = this.fb.group({
       image: [null, Validators.required],
       name: ['', Validators.required],
@@ -49,11 +53,10 @@ export class EditFoundersComponent implements OnInit {
       email: ['', [Validators.email]],
       description: ['', Validators.required],
       linkedin: [''],
+      isActive: [true],
     });
 
-    this.authorId = this.route.snapshot.paramMap.get('guid');
-
-    if (this.authorId) {
+    if (!this.isAddMode) {
       this.authorService.getAuthorDetails(this.authorId).then((author) => {
         this.memberForm.patchValue({
           image: author.image,
@@ -62,6 +65,7 @@ export class EditFoundersComponent implements OnInit {
           email: author.email,
           description: author.description,
           linkedin: author.socialMediaLink,
+          isActive: author.isActive ?? true,
         });
         this.previewUrl = author.image;
       });
@@ -79,30 +83,37 @@ export class EditFoundersComponent implements OnInit {
       };
       reader.readAsDataURL(file);
 
-      this.memberForm.patchValue({
-        image: file,
-      });
+      this.memberForm.patchValue({ image: file });
       this.memberForm.get('image')?.markAsTouched();
     }
   }
 
   onSubmit() {
-    const formValue = this.memberForm.value;
-
-    const member = {
-      image: formValue.image,
-      name: formValue.name,
-      email: formValue.email,
-      designation: formValue.designation,
-      description: formValue.description,
-      linkedin: formValue.linkedin,
-      id: this.authorId,
-    };
-
     if (this.memberForm.valid) {
-      //console.log(member);
-      this.authorService.editAuthorDetails(member);
-      //console.log("onSubmit - service method call");
+      const formValue = this.memberForm.value;
+
+      if (this.isAddMode) {
+        this.authorService.addAuthor({
+          image: formValue.image,
+          name: formValue.name,
+          email: formValue.email,
+          designation: formValue.designation,
+          description: formValue.description,
+          linkedin: formValue.linkedin,
+        });
+      } else {
+        this.authorService.editAuthorDetails({
+          image: formValue.image,
+          name: formValue.name,
+          email: formValue.email,
+          designation: formValue.designation,
+          description: formValue.description,
+          linkedin: formValue.linkedin,
+          id: this.authorId,
+          isActive: formValue.isActive,
+        });
+      }
+
       this.showPopup = true;
     } else {
       this.memberForm.markAllAsTouched();
@@ -112,5 +123,9 @@ export class EditFoundersComponent implements OnInit {
   closePopup(): void {
     this.showPopup = false;
     this.router.navigateByUrl(`/dashboard`);
+  }
+
+  cancel(): void {
+    this.router.navigateByUrl('/dashboard');
   }
 }
