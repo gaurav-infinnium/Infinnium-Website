@@ -45,21 +45,23 @@
            </a>
          </div> -->
 
+
+        <!-- Note: The below section displays News and Events -->
          <div *ngFor="let blog of recentBlogs; let i = index" class="mt-8 space-y-8">
            <div data-animate class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6 w-full">
              <div class="w-full md:w-1/3">
-               <a [routerLink]="['/resources/blogs/', slugify(blog.title), blog.guid]">
+               <a [routerLink]="['/resources/news-and-events/', slugify(blog.title), blog.guid]">
                  <img [src]="blog.image" alt="Blog Image 3" class="w-full h-full object-cover blog-img cursor-pointer" />
                </a>
              </div>
              <div class="flex-1 flex flex-col">
                <h3 class="text-md font-bold">{{ blog.title }}</h3>
                <p class="text-gray-600 text-sm font-normal mt-2">{{ blog.brief }}</p>
-               <a [routerLink]="['/resources/blogs/', slugify(blog.title), blog.guid]"
+               <a [routerLink]="['/resources/news-and-events/', slugify(blog.title), blog.guid]"
                  class="text-[#E76F51] hover:text-[#E65A4E] font-normal mt-3 inline-block hover:underline cursor-pointer">
                  Read More →
                </a>
-               <p class="text-gray-500 text-sm mt-[4.5rem]">📅 October 24, 2023</p>
+               <p class="text-gray-500 text-sm mt-[4.5rem]">📅 {{ blog.publishedDate | date:'longDate' }}</p>
              </div>
            </div>
            <hr class="border-gray-300" *ngIf="i < recentBlogs.length - 1" />
