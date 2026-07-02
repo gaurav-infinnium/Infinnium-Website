@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
       localStorage.getItem('isAdminLoggedIn');
       return true;
     } else {
-      this.router.navigate(['/Login']);
+      this.router.navigate(['/login']);
       return false;
     }
   }

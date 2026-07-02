@@ -52,7 +52,10 @@
                                 <div class="md:hidden font-semibold text-gray-500">Status</div>
                                 <div class="ms-[0.5rem] md:flex justify-center md:ms-0">
                                     <i class="description-icon fa-solid fa-circle-info"
-                                        (click)="openStatusDialog(contact)"></i>
+                                        tabindex="0"
+                                        role="button"
+                                        (click)="openStatusDialog(contact)"
+                                        (keyup.enter)="openStatusDialog(contact)"></i>
                                 </div>
                             </div>
                         </td>

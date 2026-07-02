@@ -51,13 +51,11 @@ export class NavbarComponent implements AfterViewInit {
 
   // Called when user clicks Logout (first time)
   onLogoutClick() {
-    console.log('User clicked logout — showing confirmation popup.');
     this.showLogoutConfirm = true;
   }
 
   // Confirm logout from popup
   confirmLogout() {
-    console.log('Confirmed logout — clearing local storage.');
     this.showLogoutConfirm = false;
     this.loginService.logout();
   }
