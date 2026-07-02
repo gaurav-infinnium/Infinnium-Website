@@ -40,8 +40,8 @@ jobs:
         run: |
           dotnet publish Infinnium_Website.Server/Infinnium_Website.Server.csproj \
             --configuration Release \
-            --runtime linux-x64 \
-            --self-contained false \
+            --no-build \
+            --no-restore \
             --output ./publish
 
       - name: Upload build artifact
