@@ -30,11 +30,28 @@ jobs:
           cache: 'npm'
           cache-dependency-path: infinnium_website.client/package-lock.json
 
-      - name: Restore .NET dependencies
-        run: dotnet restore Infinnium_Website.sln
+      - name: Install client npm dependencies
+        working-directory: infinnium_website.client
+        run: npm ci
 
-      - name: Build solution
-        run: dotnet build Infinnium_Website.sln --configuration Release --no-restore
+      - name: Build Angular client
+        working-directory: infinnium_website.client
+        run: npm run build -- --configuration production --output-path=../Infinnium_Website.Server/wwwroot
+
+      - name: Create case-compatible symlink for PublishAngular target
+        # Server.csproj's PublishAngular target references '..\Infinnium_Website.Client'
+        # which fails on case-sensitive Linux filesystems (actual dir is lowercase).
+        run: ln -sfn infinnium_website.client Infinnium_Website.Client
+
+      - name: Restore .NET dependencies (server)
+        run: dotnet restore Infinnium_Website.Server/Infinnium_Website.Server.csproj
+
+      - name: Build server
+        run: |
+          dotnet build Infinnium_Website.Server/Infinnium_Website.Server.csproj \
+            --configuration Release \
+            --no-restore \
+            -p:BuildProjectReferences=false
 
       - name: Publish application
         run: |
@@ -42,6 +59,7 @@ jobs:
             --configuration Release \
             --no-build \
             --no-restore \
+            -p:BuildProjectReferences=false \
             --output ./publish
 
       - name: Upload build artifact
