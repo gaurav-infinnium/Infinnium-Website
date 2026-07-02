@@ -1,0 +1,52 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: infinnium_website.client/package-lock.json
+
+      - name: Restore .NET dependencies
+        run: dotnet restore Infinnium_Website.sln
+
+      - name: Build solution
+        run: dotnet build Infinnium_Website.sln --configuration Release --no-restore
+
+      - name: Publish application
+        run: |
+          dotnet publish Infinnium_Website.Server/Infinnium_Website.Server.csproj \
+            --configuration Release \
+            --runtime linux-x64 \
+            --self-contained false \
+            --output ./publish
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: infinnium-website-publish
+          path: ./publish
+          retention-days: 30
