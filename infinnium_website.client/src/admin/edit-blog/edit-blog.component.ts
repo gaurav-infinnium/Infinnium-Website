@@ -141,4 +141,8 @@ export class EditBlogComponent implements OnInit {
     this.showNewsPopup = false;
     this.router.navigateByUrl(`/dashboard`);
   }
+
+  cancel(): void {
+    this.router.navigateByUrl('/dashboard');
+  }
 }

@@ -10,6 +10,7 @@
         public string? LinkedInLink { get; set; }
         public string? Image { get; set; }
         public string? ImageName { get; set; }
+        public bool? isActive { get; set; }
 
     }
 }

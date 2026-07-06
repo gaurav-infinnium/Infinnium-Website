@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BlogsService } from '../../services/blogsService.service';
 import { QuillModule } from 'ngx-quill';
 
@@ -27,8 +28,9 @@ import { QuillModule } from 'ngx-quill';
 export class AddBlogComponent implements OnInit {
   blogForm!: FormGroup;
   showPopup = false;
+  previewUrl: string | null = null;
 
-  constructor(private fb: FormBuilder, private blogService: BlogsService) {}
+  constructor(private fb: FormBuilder, private blogService: BlogsService, private router: Router) {}
 
   ngOnInit(): void {
     this.blogForm = this.fb.group({
@@ -45,6 +47,9 @@ export class AddBlogComponent implements OnInit {
     if (file) {
       this.blogForm.patchValue({ image: file });
       this.blogForm.get('image')?.markAsTouched();
+      const reader = new FileReader();
+      reader.onload = () => { this.previewUrl = reader.result as string; };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -65,6 +70,7 @@ export class AddBlogComponent implements OnInit {
       this.blogService.addBlog(blog);
       this.showPopup = true;
       this.blogForm.reset();
+      this.previewUrl = null;
     } else {
       this.blogForm.markAllAsTouched();
     }
@@ -72,5 +78,9 @@ export class AddBlogComponent implements OnInit {
 
   closePopup(): void {
     this.showPopup = false;
+  }
+
+  cancel(): void {
+    this.router.navigateByUrl('/dashboard');
   }
 }
