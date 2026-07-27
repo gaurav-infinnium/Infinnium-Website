@@ -194,7 +194,7 @@ namespace Infinnium_Website.Server.Controllers
                     {
                         imageData = binaryReader.ReadBytes((int)Image.Length);
                     }
-                    cmd.Parameters.AddWithValue("@Images", imageData);
+                    cmd.Parameters.AddWithValue("@Image", imageData);
                     cmd.Parameters.AddWithValue("@ImageName", member.ImageName);
                 }
                 //else

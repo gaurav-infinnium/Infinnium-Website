@@ -221,6 +221,7 @@ button.learn-more {
   font-family: inherit;*/
   width: 12rem;
   height: auto;
+  overflow: hidden;
 }
 
 button.learn-more .circle {
@@ -293,6 +294,7 @@ button.learn-more .button-text {
 
 button:hover .circle {
   width: 100%;
+/*  background: #e66f51;*/
 }
 
 button:hover .circle .icon.arrow {
@@ -302,7 +304,6 @@ button:hover .circle .icon.arrow {
 
 button:hover .button-text {
   color: #fff;
-  border: #e65a4e;
 }
 
 /* -------------------------------------------------------------------- */
