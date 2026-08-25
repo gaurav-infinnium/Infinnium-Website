@@ -240,7 +240,11 @@
 
         <div
           class="absolute top-3 right-3 cursor-pointer"
-          (click)="editMember(author)" title="Edit">
+          tabindex="0"
+          role="button"
+          (click)="editMember(author)"
+          (keyup.enter)="editMember(author)"
+          title="Edit">
           <i class="fa-solid fa-pen-to-square text-gray-600 hover:text-[#E76F51] transition-colors duration-200 hover:scale-125 transform"></i>
         </div>
         <img [src]="author.image" alt="{{ author.name }}"

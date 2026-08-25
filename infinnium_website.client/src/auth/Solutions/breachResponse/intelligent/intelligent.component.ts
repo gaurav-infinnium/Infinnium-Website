@@ -229,6 +229,7 @@ export class IntelligentComponent implements AfterViewInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private updateActiveStatesWithAnimation(): void { }
 
   ngOnDestroy(): void {

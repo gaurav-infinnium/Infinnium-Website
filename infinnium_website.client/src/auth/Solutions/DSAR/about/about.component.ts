@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -8,7 +8,7 @@ import { Component, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angula
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })
-export class AboutComponent implements AfterViewInit {
+export class AboutComponent implements AfterViewInit, OnDestroy {
   items = [
     {
       id: 1,
@@ -214,6 +214,7 @@ export class AboutComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
  
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private updateActiveStatesWithAnimation(): void {}
  
   ngOnDestroy(): void {

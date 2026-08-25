@@ -83,7 +83,11 @@
           class="w-2 h-2 rounded-full cursor-pointer transition-all duration-300" [ngClass]="{
                'bg-[#12423C]': i === currentIndex,
                'bg-gray-300': i !== currentIndex
-             }" (click)="onDotClick(i)">
+             }"
+          tabindex="0"
+          role="button"
+          (click)="onDotClick(i)"
+          (keyup.enter)="onDotClick(i)">
         </div>
       </div>
     </div>

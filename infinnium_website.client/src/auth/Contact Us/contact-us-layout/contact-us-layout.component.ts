@@ -30,7 +30,7 @@ export class ContactUsLayoutComponent {
   isFadingOut = false;
   message = "Email sent successfully!";
 
-  onFormSubmit(event: any) {
+  onFormSubmit(event: { isFormSubmitted: boolean; isMailSent: boolean }) {
     if (event.isFormSubmitted) {
       this.isVisible = true;
       this.isFadingOut = false;

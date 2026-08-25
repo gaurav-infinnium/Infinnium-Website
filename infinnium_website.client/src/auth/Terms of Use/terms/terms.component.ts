@@ -49,18 +49,7 @@ export class TermsComponent implements AfterViewInit {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (this.header && this.logoSvg) {
-      const headerEl = this.header.nativeElement;
-      const logoPath = this.logoSvg.nativeElement.querySelector('.cls-1');
-
-      // if (window.scrollY > 0) {
-      //   headerEl.classList.add('header-bg-scrolled');
-      //   headerEl.classList.remove('header-bg');
-      //   logoPath.style.fill = '#000000';
-      // } else {
-      //   headerEl.classList.add('header-bg');
-      //   headerEl.classList.remove('header-bg-scrolled');
-      //   logoPath.style.fill = '#ffffff';
-      // }
+      // scroll-based header styling handled by CSS
     }
   }
 

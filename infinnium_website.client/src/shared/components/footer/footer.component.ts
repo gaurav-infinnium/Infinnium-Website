@@ -30,8 +30,8 @@ export class FooterComponent {
         const decodedSettings = atob(savedSettings); // Decode from base64
         const parsedSettings = JSON.parse(decodedSettings); // Parse JSON
         this.settings = { ...this.settings, ...parsedSettings };
-      } catch (error) {
-        // console.error('Failed to load or parse cookie settings:', error);
+      } catch {
+        // console.error('Failed to load or parse cookie settings');
       }
     }
   }  
